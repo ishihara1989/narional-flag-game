@@ -88,9 +88,10 @@ export interface GameState {
   score: number;
   round: number;
   maxRounds: number;
-  mode: 'flag-to-map' | 'name-to-flag' | 'map-to-flag' | null;
+  mode: 'flag-to-map' | 'name-to-flag' | 'flag-to-name' | 'map-to-flag' | null;
   currentCountry: Country | null;
   options: Country[]; // For multiple choice modes
   showResult: boolean;
   lastGuessCorrect: boolean | null;
+  selectedOptionCca3: string | null;
 }

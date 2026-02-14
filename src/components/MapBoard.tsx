@@ -1,13 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, type FC } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import type { Feature, Geometry, GeoJsonProperties } from 'geojson';
 
 // Fix for default marker icon in React-Leaflet
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-let DefaultIcon = L.icon({
+const DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow,
     iconSize: [25, 41],
@@ -21,7 +22,7 @@ interface MapBoardProps {
     markers?: { lat: number; lng: number; message?: string }[];
     center?: [number, number];
     zoom?: number;
-    highlightCountry?: any; // GeoJSON data
+    highlightCountry?: Feature<Geometry, GeoJsonProperties> | null;
 }
 
 function ClickHandler({ onClick }: { onClick: (latlng: L.LatLng) => void }) {
@@ -41,7 +42,7 @@ function MapUpdater({ center, zoom }: { center: [number, number], zoom: number }
     return null;
 }
 
-const MapBoard: React.FC<MapBoardProps> = ({ onMapClick, markers = [], center = [20, 0], zoom = 2, highlightCountry }) => {
+const MapBoard: FC<MapBoardProps> = ({ onMapClick, markers = [], center = [20, 0], zoom = 2, highlightCountry }) => {
     const geoJsonLayerRef = useRef<L.GeoJSON>(null);
 
     useEffect(() => {
@@ -69,7 +70,7 @@ const MapBoard: React.FC<MapBoardProps> = ({ onMapClick, markers = [], center = 
                 ))}
                 {highlightCountry && (
                     <GeoJSON
-                        key={highlightCountry.properties?.id || Math.random()}
+                        key={String(highlightCountry.id ?? 'highlight-country')}
                         data={highlightCountry}
                         style={{
                             color: '#ffeb3b',

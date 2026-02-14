@@ -58,3 +58,197 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.name-to-flag-mode {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 16px;
+}
+
+.name-to-flag-title {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+}
+
+.name-to-flag-options-grid {
+  width: min(92vw, 680px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.name-to-flag-option {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.name-to-flag-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.name-to-flag-next {
+  margin-top: 16px;
+}
+
+.flag-to-name-options-grid {
+  width: min(92vw, 760px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.flag-to-name-option-button {
+  width: 100%;
+  min-height: 72px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 0.75rem 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.flag-to-name-option-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.flag-to-name-choice-correct {
+  border-color: #22c55e;
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.45);
+  background: rgba(22, 163, 74, 0.22);
+}
+
+.flag-to-name-choice-wrong {
+  border-color: #ef4444;
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.4);
+  background: rgba(127, 29, 29, 0.28);
+}
+
+.flag-to-name-choice-neutral {
+  opacity: 0.65;
+}
+
+.flag-choice-correct {
+  border: 4px solid #22c55e;
+  box-shadow: 0 0 24px rgba(34, 197, 94, 0.5);
+}
+
+.flag-choice-wrong {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+.name-to-flag-result-badge {
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.name-to-flag-result-badge.is-correct {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.45);
+}
+
+.name-to-flag-result-badge.is-wrong {
+  background: rgba(239, 68, 68, 0.22);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.name-to-flag-summary-options-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.name-to-flag-summary-option-item {
+  min-width: 132px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.name-to-flag-summary-option-card {
+  transition: all 0.2s ease;
+}
+
+.name-to-flag-summary-option-correct {
+  border: 3px solid #22c55e;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.35);
+}
+
+.name-to-flag-summary-option-wrong {
+  border: 3px solid #ef4444;
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.35);
+  background: rgba(127, 29, 29, 0.2);
+}
+
+.name-to-flag-summary-option-neutral {
+  opacity: 0.7;
+}
+
+.flag-to-name-summary-options-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.flag-to-name-summary-option {
+  flex: 0 0 auto;
+  min-width: 140px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 0.85rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+@media (max-height: 740px) {
+  .name-to-flag-title {
+    margin-bottom: 10px;
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+  }
+
+  .name-to-flag-options-grid {
+    gap: 8px;
+  }
+
+  .name-to-flag-next {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 720px) {
+  .flag-to-name-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .name-to-flag-summary-option-item {
+    min-width: 116px;
+  }
+
+  .flag-to-name-summary-option {
+    min-width: 124px;
+  }
+}

@@ -6,9 +6,28 @@ const API_URL = 'https://restcountries.com/v3.1';
 export const CountryService = {
     getAllCountries: async (): Promise<Country[]> => {
         try {
-            const response = await axios.get<Country[]>(`${API_URL}/all?fields=name,flags,latlng,cca3,translations,area`);
-            // Filter out countries without necessary data
-            return response.data.filter(c => c.latlng && c.latlng.length === 2 && c.name.common !== 'Antarctica');
+            const response = await axios.get<Country[]>(
+                `${API_URL}/all?fields=name,flags,latlng,cca2,cca3,translations,area,unMember`
+            );
+            // Keep only UN member states and countries with necessary game data.
+            // Normalize flag URLs by ISO code to avoid inconsistent upstream flag assets.
+            return response.data
+                .filter(
+                    c => c.unMember === true && c.latlng && c.latlng.length === 2 && c.name.common !== 'Antarctica'
+                )
+                .map((c) => {
+                    const code = c.cca2?.toLowerCase();
+                    if (!code || code.length !== 2) return c;
+
+                    return {
+                        ...c,
+                        flags: {
+                            ...c.flags,
+                            svg: `https://flagcdn.com/${code}.svg`,
+                            png: `https://flagcdn.com/w320/${code}.png`
+                        }
+                    };
+                });
         } catch (error) {
             console.error('Error fetching countries:', error);
             return [];
