@@ -1,0 +1,2515 @@
+{
+    "アイスランド": {
+        "color": [
+            "blue",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "nordic"
+        ],
+        "motif": []
+    },
+    "アイルランド": {
+        "color": [
+            "green",
+            "white",
+            "orange"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "アゼルバイジャン": {
+        "color": [
+            "blue",
+            "red",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "crescent_star"
+        ],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "アフガニスタン": {
+        "color": [
+            "black",
+            "red",
+            "green"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "アメリカ合衆国": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "stripes",
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "stars_and_stripes"
+        ]
+    },
+    "アラブ首長国連邦": {
+        "color": [
+            "red",
+            "green",
+            "white",
+            "black"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "アルジェリア": {
+        "color": [
+            "green",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "bicolor_v"
+        ],
+        "motif": [
+            "crescent_star"
+        ]
+    },
+    "アルゼンチン": {
+        "color": [
+            "light_blue",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "sun"
+        ]
+    },
+    "アルバニア": {
+        "color": [
+            "red",
+            "black"
+        ],
+        "layout": [],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "アルメニア": {
+        "color": [
+            "red",
+            "blue",
+            "orange"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "アンゴラ": {
+        "color": [
+            "red",
+            "black",
+            "yellow"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "アンティグア・バーブーダ": {
+        "color": [
+            "red",
+            "black",
+            "blue",
+            "white",
+            "yellow"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": [
+            "sun"
+        ]
+    },
+    "アンドラ": {
+        "color": [
+            "blue",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "イエメン": {
+        "color": [
+            "red",
+            "white",
+            "black"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "イギリス": {
+        "color": [
+            "blue",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "cross",
+            "saltire"
+        ],
+        "motif": [],
+        "group": [
+            "union_jack"
+        ]
+    },
+    "イスラエル": {
+        "color": [
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "イタリア": {
+        "color": [
+            "green",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "イラク": {
+        "color": [
+            "red",
+            "white",
+            "black",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "イラン": {
+        "color": [
+            "green",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "インド": {
+        "color": [
+            "orange",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "sun"
+        ]
+    },
+    "インドネシア": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": []
+    },
+    "ウガンダ": {
+        "color": [
+            "black",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "circle",
+            "emblem"
+        ]
+    },
+    "ウクライナ": {
+        "color": [
+            "blue",
+            "yellow"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": []
+    },
+    "ウズベキスタン": {
+        "color": [
+            "blue",
+            "white",
+            "green",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "crescent_star"
+        ]
+    },
+    "ウルグアイ": {
+        "color": [
+            "white",
+            "blue",
+            "yellow"
+        ],
+        "layout": [
+            "stripes",
+            "canton"
+        ],
+        "motif": [
+            "sun"
+        ]
+    },
+    "エクアドル": {
+        "color": [
+            "yellow",
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "エジプト": {
+        "color": [
+            "red",
+            "white",
+            "black"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "エストニア": {
+        "color": [
+            "blue",
+            "black",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "エスワティニ": {
+        "color": [
+            "blue",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "エチオピア": {
+        "color": [
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "エリトリア": {
+        "color": [
+            "green",
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "エルサルバドル": {
+        "color": [
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "central_america"
+        ]
+    },
+    "オーストラリア": {
+        "color": [
+            "blue",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "union_jack"
+        ]
+    },
+    "オーストリア": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "オマーン": {
+        "color": [
+            "red",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "オランダ": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "ガーナ": {
+        "color": [
+            "red",
+            "yellow",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "カーボベルデ": {
+        "color": [
+            "blue",
+            "white",
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ガイアナ": {
+        "color": [
+            "green",
+            "yellow",
+            "white",
+            "red",
+            "black"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": []
+    },
+    "カザフスタン": {
+        "color": [
+            "light_blue",
+            "yellow"
+        ],
+        "layout": [],
+        "motif": [
+            "sun",
+            "emblem"
+        ]
+    },
+    "カタール": {
+        "color": [
+            "maroon",
+            "white"
+        ],
+        "layout": [
+            "bicolor_v"
+        ],
+        "motif": []
+    },
+    "カナダ": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ガボン": {
+        "color": [
+            "green",
+            "yellow",
+            "blue"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "カメルーン": {
+        "color": [
+            "green",
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "ガンビア": {
+        "color": [
+            "red",
+            "blue",
+            "green",
+            "white"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": []
+    },
+    "カンボジア": {
+        "color": [
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "北マケドニア": {
+        "color": [
+            "red",
+            "yellow"
+        ],
+        "layout": [],
+        "motif": [
+            "sun"
+        ]
+    },
+    "ギニア": {
+        "color": [
+            "red",
+            "yellow",
+            "green"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "ギニアビサウ": {
+        "color": [
+            "red",
+            "yellow",
+            "green"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "キプロス": {
+        "color": [
+            "white",
+            "orange",
+            "green"
+        ],
+        "layout": [],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "キューバ": {
+        "color": [
+            "blue",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "stripes",
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ギリシャ": {
+        "color": [
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "stripes",
+            "canton"
+        ],
+        "motif": [
+            "cross"
+        ]
+    },
+    "キリバス": {
+        "color": [
+            "red",
+            "blue",
+            "white",
+            "yellow"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "sun",
+            "emblem"
+        ]
+    },
+    "キルギス": {
+        "color": [
+            "red",
+            "yellow"
+        ],
+        "layout": [],
+        "motif": [
+            "sun"
+        ]
+    },
+    "グアテマラ": {
+        "color": [
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "central_america"
+        ]
+    },
+    "クウェート": {
+        "color": [
+            "green",
+            "white",
+            "red",
+            "black"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": [],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "クック諸島": {
+        "color": [
+            "blue",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "union_jack"
+        ]
+    },
+    "グレナダ": {
+        "color": [
+            "red",
+            "yellow",
+            "green"
+        ],
+        "layout": [],
+        "motif": [
+            "star",
+            "emblem"
+        ]
+    },
+    "クロアチア": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_slavic"
+        ]
+    },
+    "ケニア": {
+        "color": [
+            "black",
+            "red",
+            "green",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "コートジボワール": {
+        "color": [
+            "orange",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "コスタリカ": {
+        "color": [
+            "blue",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "コモロ": {
+        "color": [
+            "yellow",
+            "white",
+            "red",
+            "blue",
+            "green"
+        ],
+        "layout": [
+            "stripes",
+            "triangle"
+        ],
+        "motif": [
+            "crescent_star"
+        ]
+    },
+    "コロンビア": {
+        "color": [
+            "yellow",
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "コンゴ共和国": {
+        "color": [
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "コンゴ民主共和国": {
+        "color": [
+            "blue",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "サウジアラビア": {
+        "color": [
+            "green",
+            "white"
+        ],
+        "layout": [],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "サモア": {
+        "color": [
+            "red",
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "サントメ・プリンシペ": {
+        "color": [
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "ザンビア": {
+        "color": [
+            "green",
+            "orange",
+            "black",
+            "red"
+        ],
+        "layout": [],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "サンマリノ": {
+        "color": [
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "シエラレオネ": {
+        "color": [
+            "green",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "ジブチ": {
+        "color": [
+            "light_blue",
+            "green",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "bicolor_h",
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ジャマイカ": {
+        "color": [
+            "green",
+            "yellow",
+            "black"
+        ],
+        "layout": [
+            "saltire"
+        ],
+        "motif": []
+    },
+    "ジョージア": {
+        "color": [
+            "white",
+            "red"
+        ],
+        "layout": [
+            "cross"
+        ],
+        "motif": [
+            "cross"
+        ]
+    },
+    "シリア": {
+        "color": [
+            "red",
+            "white",
+            "black",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "シンガポール": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": [
+            "crescent_star"
+        ]
+    },
+    "ジンバブエ": {
+        "color": [
+            "green",
+            "yellow",
+            "red",
+            "black",
+            "white"
+        ],
+        "layout": [
+            "stripes",
+            "triangle"
+        ],
+        "motif": [
+            "star",
+            "emblem"
+        ]
+    },
+    "スイス": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "cross"
+        ],
+        "motif": []
+    },
+    "スウェーデン": {
+        "color": [
+            "blue",
+            "yellow"
+        ],
+        "layout": [
+            "nordic"
+        ],
+        "motif": []
+    },
+    "スーダン": {
+        "color": [
+            "red",
+            "white",
+            "black",
+            "green"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": [],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "スペイン": {
+        "color": [
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "スリナム": {
+        "color": [
+            "green",
+            "white",
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "スリランカ": {
+        "color": [
+            "yellow",
+            "orange",
+            "green",
+            "maroon"
+        ],
+        "layout": [],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "スロバキア": {
+        "color": [
+            "white",
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_slavic"
+        ]
+    },
+    "スロベニア": {
+        "color": [
+            "white",
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_slavic"
+        ]
+    },
+    "セーシェル": {
+        "color": [
+            "blue",
+            "yellow",
+            "red",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": []
+    },
+    "赤道ギニア": {
+        "color": [
+            "green",
+            "white",
+            "red",
+            "blue"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "セネガル": {
+        "color": [
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "セルビア": {
+        "color": [
+            "red",
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_slavic"
+        ]
+    },
+    "セントクリストファー・ネイビス": {
+        "color": [
+            "green",
+            "black",
+            "red",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "セントビンセント・グレナディーン": {
+        "color": [
+            "blue",
+            "yellow",
+            "green"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "セントルシア": {
+        "color": [
+            "light_blue",
+            "black",
+            "white",
+            "yellow"
+        ],
+        "layout": [],
+        "motif": [
+            "triangle"
+        ]
+    },
+    "ソマリア": {
+        "color": [
+            "light_blue",
+            "white"
+        ],
+        "layout": [],
+        "motif": [
+            "star"
+        ]
+    },
+    "ソロモン諸島": {
+        "color": [
+            "blue",
+            "green",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "タイ": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": []
+    },
+    "大韓民国": {
+        "color": [
+            "white",
+            "black",
+            "red",
+            "blue"
+        ],
+        "layout": [],
+        "motif": [
+            "sun",
+            "circle"
+        ]
+    },
+    "タジキスタン": {
+        "color": [
+            "red",
+            "white",
+            "green",
+            "yellow"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "タンザニア": {
+        "color": [
+            "green",
+            "black",
+            "blue",
+            "yellow"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": []
+    },
+    "チェコ": {
+        "color": [
+            "white",
+            "red",
+            "blue"
+        ],
+        "layout": [
+            "bicolor_h",
+            "triangle"
+        ],
+        "motif": []
+    },
+    "チャド": {
+        "color": [
+            "blue",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "中央アフリカ": {
+        "color": [
+            "blue",
+            "white",
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "中華人民共和国": {
+        "color": [
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "チュニジア": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [],
+        "motif": [
+            "circle",
+            "crescent_star"
+        ]
+    },
+    "チリ": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "bicolor_h",
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ツバル": {
+        "color": [
+            "light_blue",
+            "white",
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "union_jack"
+        ]
+    },
+    "デンマーク": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "nordic"
+        ],
+        "motif": []
+    },
+    "ドイツ": {
+        "color": [
+            "black",
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "トーゴ": {
+        "color": [
+            "green",
+            "yellow",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "stripes",
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "ドミニカ共和国": {
+        "color": [
+            "blue",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "cross"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ドミニカ国": {
+        "color": [
+            "green",
+            "yellow",
+            "black",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "cross"
+        ],
+        "motif": [
+            "circle",
+            "emblem"
+        ]
+    },
+    "トリニダード・トバゴ": {
+        "color": [
+            "red",
+            "black",
+            "white"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": []
+    },
+    "トルクメニスタン": {
+        "color": [
+            "green",
+            "white",
+            "red"
+        ],
+        "layout": [],
+        "motif": [
+            "crescent_star",
+            "emblem"
+        ]
+    },
+    "トルコ": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [],
+        "motif": [
+            "crescent_star"
+        ]
+    },
+    "トンガ": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "cross"
+        ]
+    },
+    "ナイジェリア": {
+        "color": [
+            "green",
+            "white"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "ナウル": {
+        "color": [
+            "blue",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ナミビア": {
+        "color": [
+            "blue",
+            "red",
+            "green",
+            "white",
+            "yellow"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [
+            "sun"
+        ]
+    },
+    "ニカラグア": {
+        "color": [
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "central_america"
+        ]
+    },
+    "ニジェール": {
+        "color": [
+            "orange",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "circle"
+        ]
+    },
+    "日本": {
+        "color": [
+            "white",
+            "red"
+        ],
+        "layout": [],
+        "motif": [
+            "sun",
+            "circle"
+        ]
+    },
+    "ニュージーランド": {
+        "color": [
+            "blue",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "union_jack"
+        ]
+    },
+    "ネパール": {
+        "color": [
+            "red",
+            "blue",
+            "white"
+        ],
+        "layout": [],
+        "motif": [
+            "sun",
+            "moon"
+        ]
+    },
+    "ノルウェー": {
+        "color": [
+            "red",
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "nordic"
+        ],
+        "motif": []
+    },
+    "バーレーン": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "bicolor_v"
+        ],
+        "motif": []
+    },
+    "ハイチ": {
+        "color": [
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "パキスタン": {
+        "color": [
+            "green",
+            "white"
+        ],
+        "layout": [
+            "bicolor_v"
+        ],
+        "motif": [
+            "crescent_star"
+        ]
+    },
+    "バナツ": {
+        "color": [
+            "red",
+            "green",
+            "black",
+            "yellow"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "パナマ": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [],
+        "motif": [
+            "star"
+        ]
+    },
+    "バハマ": {
+        "color": [
+            "blue",
+            "yellow",
+            "black"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": []
+    },
+    "パプアニューギニア": {
+        "color": [
+            "black",
+            "red",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [
+            "star",
+            "emblem"
+        ]
+    },
+    "パラオ": {
+        "color": [
+            "light_blue",
+            "yellow"
+        ],
+        "layout": [],
+        "motif": [
+            "sun",
+            "circle"
+        ]
+    },
+    "パラグアイ": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "バルバドス": {
+        "color": [
+            "blue",
+            "yellow",
+            "black"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ハンガリー": {
+        "color": [
+            "red",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "バングラデシュ": {
+        "color": [
+            "green",
+            "red"
+        ],
+        "layout": [],
+        "motif": [
+            "sun",
+            "circle"
+        ]
+    },
+    "東ティモール": {
+        "color": [
+            "red",
+            "black",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "フィジー": {
+        "color": [
+            "light_blue",
+            "red",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "canton"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "union_jack"
+        ]
+    },
+    "フィリピン": {
+        "color": [
+            "blue",
+            "red",
+            "white",
+            "yellow"
+        ],
+        "layout": [
+            "bicolor_h",
+            "triangle"
+        ],
+        "motif": [
+            "sun",
+            "star"
+        ]
+    },
+    "フィンランド": {
+        "color": [
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "nordic"
+        ],
+        "motif": []
+    },
+    "ブータン": {
+        "color": [
+            "orange",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ブラジル": {
+        "color": [
+            "green",
+            "yellow",
+            "blue",
+            "white"
+        ],
+        "layout": [],
+        "motif": [
+            "circle",
+            "star"
+        ]
+    },
+    "フランス": {
+        "color": [
+            "blue",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "ブルガリア": {
+        "color": [
+            "white",
+            "green",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "ブルキナファソ": {
+        "color": [
+            "red",
+            "green",
+            "yellow"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "ブルンジ": {
+        "color": [
+            "red",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "saltire"
+        ],
+        "motif": [
+            "star",
+            "circle"
+        ]
+    },
+    "ベトナム": {
+        "color": [
+            "red",
+            "yellow"
+        ],
+        "layout": [],
+        "motif": [
+            "star"
+        ]
+    },
+    "ベニン": {
+        "color": [
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": [],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "ベネズエラ": {
+        "color": [
+            "yellow",
+            "blue",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ベラルーシ": {
+        "color": [
+            "red",
+            "green",
+            "white"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ベリーズ": {
+        "color": [
+            "blue",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "border"
+        ],
+        "motif": [
+            "emblem",
+            "circle"
+        ]
+    },
+    "ベルギー": {
+        "color": [
+            "black",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "ペルー": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "ポーランド": {
+        "color": [
+            "white",
+            "red"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": []
+    },
+    "ボスニア・ヘルツェゴビナ": {
+        "color": [
+            "blue",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ボツワナ": {
+        "color": [
+            "light_blue",
+            "black",
+            "white"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": []
+    },
+    "ボリビア": {
+        "color": [
+            "red",
+            "yellow",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "ポルトガル": {
+        "color": [
+            "green",
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "bicolor_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ホンジュラス": {
+        "color": [
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "central_america"
+        ]
+    },
+    "マーシャル諸島": {
+        "color": [
+            "blue",
+            "orange",
+            "white"
+        ],
+        "layout": [
+            "diagonal"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "マダガスカル": {
+        "color": [
+            "white",
+            "red",
+            "green"
+        ],
+        "layout": [
+            "triangle"
+        ],
+        "motif": []
+    },
+    "マラウイ": {
+        "color": [
+            "black",
+            "red",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "sun"
+        ]
+    },
+    "マリ": {
+        "color": [
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [],
+        "group": [
+            "pan_african"
+        ]
+    },
+    "マルタ": {
+        "color": [
+            "white",
+            "red"
+        ],
+        "layout": [
+            "bicolor_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "マレーシア": {
+        "color": [
+            "red",
+            "white",
+            "blue",
+            "yellow"
+        ],
+        "layout": [
+            "stripes",
+            "canton"
+        ],
+        "motif": [
+            "crescent_star"
+        ],
+        "group": [
+            "stars_and_stripes"
+        ]
+    },
+    "ミクロネシア連邦": {
+        "color": [
+            "light_blue",
+            "white"
+        ],
+        "layout": [],
+        "motif": [
+            "star"
+        ]
+    },
+    "南アフリカ": {
+        "color": [
+            "black",
+            "yellow",
+            "green",
+            "white",
+            "red",
+            "blue"
+        ],
+        "layout": [],
+        "motif": []
+    },
+    "南スーダン": {
+        "color": [
+            "black",
+            "red",
+            "green",
+            "blue",
+            "yellow",
+            "white"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "ミャンマー": {
+        "color": [
+            "yellow",
+            "green",
+            "red",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "star"
+        ]
+    },
+    "メキシコ": {
+        "color": [
+            "green",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "モーリシャス": {
+        "color": [
+            "red",
+            "blue",
+            "yellow",
+            "green"
+        ],
+        "layout": [
+            "stripes"
+        ],
+        "motif": []
+    },
+    "モーリタニア": {
+        "color": [
+            "green",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "crescent_star"
+        ]
+    },
+    "モザンビーク": {
+        "color": [
+            "green",
+            "black",
+            "yellow",
+            "white",
+            "red"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": [
+            "star",
+            "emblem"
+        ]
+    },
+    "モナコ": {
+        "color": [
+            "red",
+            "white"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": []
+    },
+    "モルディブ": {
+        "color": [
+            "red",
+            "green",
+            "white"
+        ],
+        "layout": [
+            "border"
+        ],
+        "motif": [
+            "moon"
+        ]
+    },
+    "モルドバ": {
+        "color": [
+            "blue",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "モロッコ": {
+        "color": [
+            "red",
+            "green"
+        ],
+        "layout": [],
+        "motif": [
+            "star"
+        ]
+    },
+    "モンゴル": {
+        "color": [
+            "red",
+            "blue",
+            "yellow"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "モンテネグロ": {
+        "color": [
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "border"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ヨルダン": {
+        "color": [
+            "black",
+            "white",
+            "green",
+            "red"
+        ],
+        "layout": [
+            "tri_h",
+            "triangle"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "ラオス": {
+        "color": [
+            "red",
+            "blue",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "circle"
+        ]
+    },
+    "ラトビア": {
+        "color": [
+            "maroon",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "リトアニア": {
+        "color": [
+            "yellow",
+            "green",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "リビア": {
+        "color": [
+            "red",
+            "black",
+            "green",
+            "white"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "crescent_star"
+        ],
+        "group": [
+            "pan_arab"
+        ]
+    },
+    "リヒテンシュタイン": {
+        "color": [
+            "blue",
+            "red",
+            "yellow"
+        ],
+        "layout": [
+            "bicolor_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "リベリア": {
+        "color": [
+            "red",
+            "white",
+            "blue"
+        ],
+        "layout": [
+            "stripes",
+            "canton"
+        ],
+        "motif": [
+            "star"
+        ],
+        "group": [
+            "stars_and_stripes"
+        ]
+    },
+    "ルーマニア": {
+        "color": [
+            "blue",
+            "yellow",
+            "red"
+        ],
+        "layout": [
+            "tri_v"
+        ],
+        "motif": []
+    },
+    "ルクセンブルク": {
+        "color": [
+            "red",
+            "white",
+            "light_blue"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": []
+    },
+    "ルワンダ": {
+        "color": [
+            "blue",
+            "yellow",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "sun"
+        ]
+    },
+    "レソト": {
+        "color": [
+            "blue",
+            "white",
+            "green",
+            "black"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "レバノン": {
+        "color": [
+            "red",
+            "white",
+            "green"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [
+            "emblem"
+        ]
+    },
+    "ロシア": {
+        "color": [
+            "white",
+            "blue",
+            "red"
+        ],
+        "layout": [
+            "tri_h"
+        ],
+        "motif": [],
+        "group": [
+            "pan_slavic"
+        ]
+    }
+}

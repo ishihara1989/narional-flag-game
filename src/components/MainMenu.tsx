@@ -7,55 +7,66 @@ interface MainMenuProps {
     onOpenSettings: () => void;
 }
 
+const MENU_MODES: Array<{
+    mode: GameMode;
+    icon: string;
+    title: string;
+    description: string;
+}> = [
+    {
+        mode: 'flag-to-map',
+        icon: '🚩 ➜ 🗺️',
+        title: 'Flag to Map',
+        description: '国旗を見て、国の場所を地図上で当てます。'
+    },
+    {
+        mode: 'name-to-flag',
+        icon: '📛 ➜ 🚩',
+        title: 'Name to Flag',
+        description: '国名を見て、正しい国旗を選びます。'
+    },
+    {
+        mode: 'flag-to-name',
+        icon: '🚩 ➜ 📛',
+        title: 'Flag to Name',
+        description: '表示された国旗の国名を選びます。'
+    },
+    {
+        mode: 'map-to-flag',
+        icon: '🗺️ ➜ 🚩',
+        title: 'Map to Flag',
+        description: '地図で示された国に対応する国旗を選びます。'
+    }
+];
+
 const MainMenu: FC<MainMenuProps> = ({ onSelectMode, settings, onOpenSettings }) => {
     return (
-        <div className="flex flex-col items-center justify-center p-8 space-y-6">
-            <h1 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">
-                🌏 Globe Master <span className="text-blue-300">Flag</span> Game
-            </h1>
-            <button
-                onClick={onOpenSettings}
-                className="btn-glass"
-            >
-                設定を変更 ({settings.maxRounds} ラウンド / 選択肢 {settings.optionCount})
-            </button>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 w-full max-w-6xl">
+        <div className="main-menu">
+            <header className="main-menu-header">
+                <h1 className="main-menu-title">
+                    🌏 Globe Master <span>Flag</span> Game
+                </h1>
+                <p className="main-menu-subtitle">遊びたいモードを選んでスタート</p>
                 <button
-                    onClick={() => onSelectMode('flag-to-map')}
-                    className="glass-panel p-8 text-xl font-bold hover:bg-white/10 transition-all flex flex-col items-center gap-4 py-12"
+                    onClick={onOpenSettings}
+                    className="btn-glass main-menu-settings-button"
                 >
-                    <span className="text-4xl">🚩 ➡ 🗺️</span>
-                    Flag to Map
-                    <p className="text-sm font-normal opacity-80 mt-2">Locate the country based on its flag</p>
+                    設定を変更 ({settings.maxRounds} ラウンド / 選択肢 {settings.optionCount})
                 </button>
+            </header>
 
-                <button
-                    onClick={() => onSelectMode('name-to-flag')}
-                    className="glass-panel p-8 text-xl font-bold hover:bg-white/10 transition-all flex flex-col items-center gap-4 py-12"
-                >
-                    <span className="text-4xl">📛 ➡ 🚩</span>
-                    Name to Flag
-                    <p className="text-sm font-normal opacity-80 mt-2">Pick the right flag for the country name</p>
-                </button>
-
-                <button
-                    onClick={() => onSelectMode('flag-to-name')}
-                    className="glass-panel p-8 text-xl font-bold hover:bg-white/10 transition-all flex flex-col items-center gap-4 py-12"
-                >
-                    <span className="text-4xl">🚩 ➡ 📛</span>
-                    Flag to Name
-                    <p className="text-sm font-normal opacity-80 mt-2">Pick the country name for the shown flag</p>
-                </button>
-
-                <button
-                    onClick={() => onSelectMode('map-to-flag')}
-                    className="glass-panel p-8 text-xl font-bold hover:bg-white/10 transition-all flex flex-col items-center gap-4 py-12"
-                >
-                    <span className="text-4xl">🗺️ ➡ 🚩</span>
-                    Map to Flag
-                    <p className="text-sm font-normal opacity-80 mt-2">Identify the flag of the highlighted country</p>
-                </button>
+            <div className="mode-grid">
+                {MENU_MODES.map((menuMode) => (
+                    <button
+                        key={menuMode.mode}
+                        onClick={() => onSelectMode(menuMode.mode)}
+                        className="glass-panel mode-card"
+                    >
+                        <span className="mode-card-icon">{menuMode.icon}</span>
+                        <span className="mode-card-title">{menuMode.title}</span>
+                        <p className="mode-card-description">{menuMode.description}</p>
+                    </button>
+                ))}
             </div>
         </div>
     );

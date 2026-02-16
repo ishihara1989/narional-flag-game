@@ -59,6 +59,95 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.main-menu {
+  width: min(1320px, calc(100vw - 40px));
+  min-height: 100%;
+  margin: 0 auto;
+  padding: clamp(22px, 3vw, 40px) 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: clamp(16px, 2.6vw, 28px);
+}
+
+.main-menu-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.main-menu-title {
+  margin: 0;
+  line-height: 1.06;
+  font-size: clamp(2rem, 4.8vw, 3.8rem);
+  letter-spacing: 0.01em;
+}
+
+.main-menu-title span {
+  color: #97d8ff;
+}
+
+.main-menu-subtitle {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  opacity: 0.86;
+}
+
+.main-menu-settings-button {
+  margin-top: 4px;
+}
+
+.mode-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-content: start;
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+.mode-card {
+  cursor: pointer;
+  min-height: clamp(190px, 28vh, 230px);
+  padding: clamp(18px, 2vw, 26px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 10px;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.mode-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(5, 12, 50, 0.35);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.mode-card:focus-visible {
+  outline: 2px solid #97d8ff;
+  outline-offset: 2px;
+}
+
+.mode-card-icon {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+}
+
+.mode-card-title {
+  font-size: clamp(1.25rem, 2.3vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.mode-card-description {
+  margin: auto 0 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  opacity: 0.82;
+}
+
 .name-to-flag-mode {
   width: 100%;
   height: 100%;
@@ -309,6 +398,17 @@ body {
 }
 
 @media (max-width: 720px) {
+  .main-menu {
+    width: min(1320px, calc(100vw - 24px));
+    gap: 14px;
+    padding-top: 16px;
+    padding-bottom: 18px;
+  }
+
+  .mode-card {
+    min-height: 168px;
+  }
+
   .name-to-flag-options-grid,
   .flag-to-name-options-grid,
   .map-to-flag-options-grid {
