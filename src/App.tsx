@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import type { Country, GameState } from './types';
+import { useEffect, useState, type CSSProperties } from 'react';
+import type { Country, GameMode, GameSettings, GameState } from './types';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { CountryService } from './services/countryService';
 import MainMenu from './components/MainMenu';
+import SettingsMenu from './components/SettingsMenu';
 import MapBoard from './components/MapBoard';
 import FlagCard from './components/FlagCard';
 import L from 'leaflet';
@@ -21,17 +22,87 @@ type ChoiceReviewItem = {
   isCorrect: boolean;
 };
 
+type RoundPlanItem = {
+  questionCountry: Country;
+  options: Country[];
+};
+
+const DEFAULT_SETTINGS: GameSettings = {
+  maxRounds: 5,
+  optionCount: 4
+};
+
+const MAX_ROUNDS = 10;
+const MAX_OPTION_COUNT = 9;
+const MIN_ROUNDS = 1;
+const MIN_OPTION_COUNT = 2;
+
+const shuffleCountries = (source: Country[]): Country[] => {
+  const shuffled = [...source];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+const modeUsesOptions = (mode: GameMode): boolean => mode !== 'flag-to-map';
+
+const buildRoundPlan = (
+  mode: GameMode,
+  validCountries: Country[],
+  settings: GameSettings
+): RoundPlanItem[] | null => {
+  const maxRounds = Math.max(MIN_ROUNDS, Math.min(MAX_ROUNDS, settings.maxRounds));
+  const optionCount = Math.max(MIN_OPTION_COUNT, Math.min(MAX_OPTION_COUNT, settings.optionCount));
+
+  if (modeUsesOptions(mode)) {
+    const requiredCountries = maxRounds * optionCount;
+    if (validCountries.length < requiredCountries) return null;
+
+    const pickedCountries = shuffleCountries(validCountries).slice(0, requiredCountries);
+    return Array.from({ length: maxRounds }, (_, roundIdx) => {
+      const roundCountries = shuffleCountries(
+        pickedCountries.slice(roundIdx * optionCount, (roundIdx + 1) * optionCount)
+      );
+      const questionCountry = roundCountries[Math.floor(Math.random() * roundCountries.length)];
+      return {
+        questionCountry,
+        options: roundCountries
+      };
+    });
+  }
+
+  if (validCountries.length < maxRounds) return null;
+
+  return shuffleCountries(validCountries)
+    .slice(0, maxRounds)
+    .map((questionCountry) => ({
+      questionCountry,
+      options: []
+    }));
+};
+
+const getOptionGridColumns = (optionCount: number): number => {
+  if (optionCount <= 1) return 1;
+  if (optionCount <= 4) return 2;
+  return 3;
+};
+
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(true);
   const [geoData, setGeoData] = useState<FeatureCollection<Geometry, GeoJsonProperties> | null>(null);
   const [choiceReview, setChoiceReview] = useState<ChoiceReviewItem[]>([]);
   const [choiceSummary, setChoiceSummary] = useState<{ mode: ChoiceMode; score: number; maxRounds: number } | null>(null);
+  const [gameSettings, setGameSettings] = useState<GameSettings>(DEFAULT_SETTINGS);
+  const [showSettings, setShowSettings] = useState(false);
+  const [roundPlan, setRoundPlan] = useState<RoundPlanItem[]>([]);
 
   const [gameState, setGameState] = useState<GameState>({
     score: 0,
     round: 1,
-    maxRounds: 5,
+    maxRounds: DEFAULT_SETTINGS.maxRounds,
     mode: null,
     currentCountry: null,
     options: [],
@@ -60,38 +131,55 @@ function App() {
     loadData();
   }, []);
 
-  const startGame = (mode: GameState['mode']) => {
-    if (mode === 'name-to-flag' || mode === 'flag-to-name') {
-      setChoiceReview([]);
-      setChoiceSummary(null);
-    }
-    startRound(1, 0, mode);
-  };
-
-  const startRound = (round: number, score: number, mode: GameState['mode']) => {
-    // Basic filtering to ensure we have flags and good data
-    const validCountries = countries.filter(c => c.flags && c.flags.svg);
-    const randomCountries = CountryService.getRandomCountries(validCountries, 1);
-    const target = randomCountries[0];
-
-    let options: Country[] = [];
-    if (mode === 'name-to-flag' || mode === 'flag-to-name' || mode === 'map-to-flag') {
-      options = CountryService.getOptions(target, validCountries, 4);
-    }
+  const startRound = (
+    round: number,
+    score: number,
+    mode: GameMode,
+    sourceRoundPlan: RoundPlanItem[]
+  ) => {
+    const roundData = sourceRoundPlan[round - 1];
+    if (!roundData) return;
 
     setGameState({
-      score: score,
-      round: round,
-      maxRounds: 5,
-      mode: mode,
-      currentCountry: target,
-      options: options,
+      score,
+      round,
+      maxRounds: sourceRoundPlan.length,
+      mode,
+      currentCountry: roundData.questionCountry,
+      options: [...roundData.options],
       showResult: false,
       lastGuessCorrect: null,
       selectedOptionCca3: null
     });
     setClickedLocation(null);
-  }
+  };
+
+  const returnToMenu = () => {
+    setGameState(prev => ({ ...prev, mode: null }));
+    setRoundPlan([]);
+    setClickedLocation(null);
+  };
+
+  const startGame = (mode: GameState['mode']) => {
+    if (!mode) return;
+
+    if (mode === 'name-to-flag' || mode === 'flag-to-name') {
+      setChoiceReview([]);
+      setChoiceSummary(null);
+    }
+
+    const validCountries = countries.filter((country) => country.flags && country.flags.svg);
+    const newRoundPlan = buildRoundPlan(mode, validCountries, gameSettings);
+
+    if (!newRoundPlan || newRoundPlan.length === 0) {
+      window.alert('ゲームデータが不足しているため、この設定では開始できません。');
+      return;
+    }
+
+    setRoundPlan(newRoundPlan);
+    setShowSettings(false);
+    startRound(1, 0, mode, newRoundPlan);
+  };
 
   const handleMapClick = (latlng: L.LatLng) => {
     if (gameState.mode !== 'flag-to-map' || !gameState.currentCountry || gameState.showResult) return;
@@ -152,6 +240,8 @@ function App() {
   };
 
   const nextRound = () => {
+    if (!gameState.mode) return;
+
     if (gameState.round >= gameState.maxRounds) {
       if (gameState.mode === 'name-to-flag' || gameState.mode === 'flag-to-name') {
         setChoiceSummary({
@@ -159,18 +249,15 @@ function App() {
           score: gameState.score,
           maxRounds: gameState.maxRounds
         });
-        setGameState(prev => ({ ...prev, mode: null }));
+        returnToMenu();
         return;
       }
 
-      if (confirm(`Game Over! Score: ${gameState.score}\nPlay Again?`)) {
-        setGameState(prev => ({ ...prev, mode: null }));
-      } else {
-        setGameState(prev => ({ ...prev, mode: null }));
-      }
+      window.alert(`Game Over! Score: ${gameState.score}`);
+      returnToMenu();
       return;
     }
-    startRound(gameState.round + 1, gameState.score, gameState.mode);
+    startRound(gameState.round + 1, gameState.score, gameState.mode, roundPlan);
   };
 
   // Find GeoJSON feature
@@ -179,13 +266,30 @@ function App() {
   const closeChoiceSummary = () => {
     setChoiceSummary(null);
     setChoiceReview([]);
+    setRoundPlan([]);
+  };
+  const optionGridStyle: CSSProperties = {
+    gridTemplateColumns: `repeat(${getOptionGridColumns(gameState.options.length)}, minmax(0, 1fr))`
   };
 
   if (loading) return <div className="text-white flex justify-center items-center h-screen">Loading Globe Data...</div>;
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-gray-900 text-white overflow-hidden relative">
-      {!gameState.mode && !choiceSummary && <MainMenu onSelectMode={startGame} />}
+      {!gameState.mode && !choiceSummary && !showSettings && (
+        <MainMenu
+          onSelectMode={startGame}
+          settings={gameSettings}
+          onOpenSettings={() => setShowSettings(true)}
+        />
+      )}
+      {!gameState.mode && !choiceSummary && showSettings && (
+        <SettingsMenu
+          settings={gameSettings}
+          onChangeSettings={setGameSettings}
+          onBack={() => setShowSettings(false)}
+        />
+      )}
 
       {!gameState.mode && choiceSummary && (
         <div className="w-full h-full overflow-y-auto p-6 md:p-10">
@@ -301,7 +405,7 @@ function App() {
           <div className="absolute top-0 w-full z-[1001] bg-gradient-to-b from-black/80 to-transparent p-4 flex justify-between items-center px-8 pointer-events-none">
             <div className="text-xl font-bold drop-shadow-md">Round {gameState.round} / {gameState.maxRounds}</div>
             <div className="text-2xl font-bold text-yellow-400 drop-shadow-md">Score: {gameState.score}</div>
-            <button className="pointer-events-auto bg-white/20 hover:bg-white/30 px-3 py-1 rounded backdrop-blur-sm" onClick={() => setGameState(p => ({ ...p, mode: null }))}>Exit</button>
+            <button className="pointer-events-auto bg-white/20 hover:bg-white/30 px-3 py-1 rounded backdrop-blur-sm" onClick={returnToMenu}>Exit</button>
           </div>
 
           {/* Mode 1: Flag -> Map */}
@@ -325,6 +429,7 @@ function App() {
               <div className="flex-grow w-full h-full">
                 <MapBoard
                   onMapClick={handleMapClick}
+                  height="100vh"
                   markers={
                     gameState.showResult && gameState.currentCountry ?
                       [{ lat: gameState.currentCountry.latlng[0], lng: gameState.currentCountry.latlng[1], message: CountryService.getJapaneseName(gameState.currentCountry) }]
@@ -341,9 +446,9 @@ function App() {
               <h2 className="name-to-flag-title">
                 {CountryService.getJapaneseName(gameState.currentCountry)}
               </h2>
-              <div className="name-to-flag-options-grid">
-                {gameState.options.map((country, idx) => (
-                  <div key={idx} className="name-to-flag-option">
+              <div className="name-to-flag-options-grid" style={optionGridStyle}>
+                {gameState.options.map((country) => (
+                  <div key={country.cca3} className="name-to-flag-option">
                     <FlagCard
                       flagUrl={country.flags.svg}
                       size="md"
@@ -378,8 +483,8 @@ function App() {
                   imageFit="fill"
                 />
               </div>
-              <div className="flag-to-name-options-grid">
-                {gameState.options.map((country, idx) => {
+              <div className="flag-to-name-options-grid" style={optionGridStyle}>
+                {gameState.options.map((country) => {
                   const isSelected = gameState.selectedOptionCca3 === country.cca3;
                   const isCorrectOption = country.cca3 === gameState.currentCountry?.cca3;
                   const highlightClass = !gameState.showResult
@@ -390,7 +495,7 @@ function App() {
 
                   return (
                     <button
-                      key={idx}
+                      key={country.cca3}
                       onClick={() => handleOptionSelect(country)}
                       className={`flag-to-name-option-button ${highlightClass}`}
                     >
@@ -417,6 +522,7 @@ function App() {
                   highlightCountry={currentGeoFeature}
                   center={gameState.currentCountry.latlng}
                   zoom={3}
+                  height="100vh"
                   markers={
                     [{ lat: gameState.currentCountry.latlng[0], lng: gameState.currentCountry.latlng[1], message: "Target" }]
                   }
@@ -425,15 +531,15 @@ function App() {
 
               <div className="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black via-black/80 to-transparent z-[1000] flex flex-col items-center">
                 <h3 className="text-2xl font-bold mb-4 drop-shadow-md">Which flag belongs to the highlighted country?</h3>
-                <div className="flex gap-4 overflow-x-auto pb-4 w-full justify-center">
-                  {gameState.options.map((country, idx) => (
+                <div className="map-to-flag-options-grid" style={optionGridStyle}>
+                  {gameState.options.map((country) => (
                     <FlagCard
-                      key={idx}
+                      key={country.cca3}
                       flagUrl={country.flags.svg}
                       size="md"
                       onClick={() => handleOptionSelect(country)}
                       className={`
-                                      flex-shrink-0
+                                      map-to-flag-option-card
                                       ${gameState.showResult && country.cca3 === gameState.currentCountry?.cca3 ? 'border-4 border-green-500 scale-110 z-10' : ''}
                                       ${gameState.showResult && country.cca3 !== gameState.currentCountry?.cca3 ? 'opacity-40 grayscale' : ''}
                                   `}

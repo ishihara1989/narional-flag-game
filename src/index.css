@@ -77,7 +77,7 @@ body {
 }
 
 .name-to-flag-options-grid {
-  width: min(92vw, 680px);
+  width: min(94vw, 960px);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
@@ -101,10 +101,23 @@ body {
 }
 
 .flag-to-name-options-grid {
-  width: min(92vw, 760px);
+  width: min(94vw, 960px);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+
+.map-to-flag-options-grid {
+  width: min(96vw, 980px);
+  display: grid;
+  gap: 12px;
+  padding-bottom: 12px;
+}
+
+.map-to-flag-option-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .flag-to-name-option-button {
@@ -224,6 +237,62 @@ body {
   font-weight: 700;
 }
 
+.settings-screen {
+  width: min(92vw, 760px);
+  margin: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.settings-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.settings-description {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.settings-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-label {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.settings-input-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.settings-range {
+  flex: 1;
+}
+
+.settings-number-input {
+  width: 84px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  color: white;
+  padding: 0.45rem 0.6rem;
+  font-size: 1rem;
+}
+
+.settings-actions {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media (max-height: 740px) {
   .name-to-flag-title {
     margin-bottom: 10px;
@@ -240,8 +309,10 @@ body {
 }
 
 @media (max-width: 720px) {
-  .flag-to-name-options-grid {
-    grid-template-columns: 1fr;
+  .name-to-flag-options-grid,
+  .flag-to-name-options-grid,
+  .map-to-flag-options-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
   .name-to-flag-summary-option-item {
@@ -250,5 +321,26 @@ body {
 
   .flag-to-name-summary-option {
     min-width: 124px;
+  }
+
+  .settings-screen {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 460px) {
+  .name-to-flag-options-grid,
+  .flag-to-name-options-grid,
+  .map-to-flag-options-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .settings-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .settings-number-input {
+    width: 100%;
   }
 }

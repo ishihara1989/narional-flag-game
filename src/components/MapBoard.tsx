@@ -23,6 +23,7 @@ interface MapBoardProps {
     center?: [number, number];
     zoom?: number;
     highlightCountry?: Feature<Geometry, GeoJsonProperties> | null;
+    height?: string;
 }
 
 function ClickHandler({ onClick }: { onClick: (latlng: L.LatLng) => void }) {
@@ -42,7 +43,14 @@ function MapUpdater({ center, zoom }: { center: [number, number], zoom: number }
     return null;
 }
 
-const MapBoard: FC<MapBoardProps> = ({ onMapClick, markers = [], center = [20, 0], zoom = 2, highlightCountry }) => {
+const MapBoard: FC<MapBoardProps> = ({
+    onMapClick,
+    markers = [],
+    center = [20, 0],
+    zoom = 2,
+    highlightCountry,
+    height = '100%'
+}) => {
     const geoJsonLayerRef = useRef<L.GeoJSON>(null);
 
     useEffect(() => {
@@ -55,7 +63,10 @@ const MapBoard: FC<MapBoardProps> = ({ onMapClick, markers = [], center = [20, 0
     }, [highlightCountry]);
 
     return (
-        <div className="w-full h-full rounded-xl overflow-hidden shadow-lg border-2 border-white/20">
+        <div
+            className="w-full h-full rounded-xl overflow-hidden shadow-lg border-2 border-white/20"
+            style={{ width: '100%', height, minHeight: '420px' }}
+        >
             <MapContainer center={center} zoom={zoom} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors'

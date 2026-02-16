@@ -1,3 +1,10 @@
+export type GameMode = 'flag-to-map' | 'name-to-flag' | 'flag-to-name' | 'map-to-flag';
+
+export interface GameSettings {
+  maxRounds: number;
+  optionCount: number;
+}
+
 export interface Country {
   name: {
     common: string;
@@ -88,7 +95,7 @@ export interface GameState {
   score: number;
   round: number;
   maxRounds: number;
-  mode: 'flag-to-map' | 'name-to-flag' | 'flag-to-name' | 'map-to-flag' | null;
+  mode: GameMode | null;
   currentCountry: Country | null;
   options: Country[]; // For multiple choice modes
   showResult: boolean;

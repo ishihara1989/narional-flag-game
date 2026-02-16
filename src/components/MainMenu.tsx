@@ -1,15 +1,24 @@
 import type { FC } from 'react';
+import type { GameMode, GameSettings } from '../types';
 
 interface MainMenuProps {
-    onSelectMode: (mode: 'flag-to-map' | 'name-to-flag' | 'flag-to-name' | 'map-to-flag') => void;
+    onSelectMode: (mode: GameMode) => void;
+    settings: GameSettings;
+    onOpenSettings: () => void;
 }
 
-const MainMenu: FC<MainMenuProps> = ({ onSelectMode }) => {
+const MainMenu: FC<MainMenuProps> = ({ onSelectMode, settings, onOpenSettings }) => {
     return (
         <div className="flex flex-col items-center justify-center p-8 space-y-6">
             <h1 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">
                 🌏 Globe Master <span className="text-blue-300">Flag</span> Game
             </h1>
+            <button
+                onClick={onOpenSettings}
+                className="btn-glass"
+            >
+                設定を変更 ({settings.maxRounds} ラウンド / 選択肢 {settings.optionCount})
+            </button>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 w-full max-w-6xl">
                 <button
