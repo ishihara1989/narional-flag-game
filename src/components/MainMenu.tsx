@@ -7,7 +7,7 @@ interface MainMenuProps {
     onOpenSettings: () => void;
 }
 
-const MENU_MODES: Array<{
+const STANDARD_MENU_MODES: Array<{
     mode: GameMode;
     icon: string;
     title: string;
@@ -39,6 +39,26 @@ const MENU_MODES: Array<{
     }
 ];
 
+const MEMORY_MENU_MODES: Array<{
+    mode: GameMode;
+    icon: string;
+    title: string;
+    description: string;
+}> = [
+    {
+        mode: 'memory-name-to-flag',
+        icon: '🧠 📛 ➜ 🚩',
+        title: 'Memory: Name to Flag',
+        description: '地域を選び、その地域の全ての国を国名から国旗で暗記します。'
+    },
+    {
+        mode: 'memory-flag-to-name',
+        icon: '🧠 🚩 ➜ 📛',
+        title: 'Memory: Flag to Name',
+        description: '地域を選び、その地域の全ての国を国旗から国名で暗記します。'
+    }
+];
+
 const MainMenu: FC<MainMenuProps> = ({ onSelectMode, settings, onOpenSettings }) => {
     return (
         <div className="main-menu">
@@ -55,18 +75,40 @@ const MainMenu: FC<MainMenuProps> = ({ onSelectMode, settings, onOpenSettings })
                 </button>
             </header>
 
-            <div className="mode-grid">
-                {MENU_MODES.map((menuMode) => (
-                    <button
-                        key={menuMode.mode}
-                        onClick={() => onSelectMode(menuMode.mode)}
-                        className="glass-panel mode-card"
-                    >
-                        <span className="mode-card-icon">{menuMode.icon}</span>
-                        <span className="mode-card-title">{menuMode.title}</span>
-                        <p className="mode-card-description">{menuMode.description}</p>
-                    </button>
-                ))}
+            <div className="main-menu-mode-sections">
+                <section className="mode-section">
+                    <h2 className="mode-section-title">通常モード</h2>
+                    <div className="mode-grid">
+                        {STANDARD_MENU_MODES.map((menuMode) => (
+                            <button
+                                key={menuMode.mode}
+                                onClick={() => onSelectMode(menuMode.mode)}
+                                className="glass-panel mode-card"
+                            >
+                                <span className="mode-card-icon">{menuMode.icon}</span>
+                                <span className="mode-card-title">{menuMode.title}</span>
+                                <p className="mode-card-description">{menuMode.description}</p>
+                            </button>
+                        ))}
+                    </div>
+                </section>
+
+                <section className="mode-section">
+                    <h2 className="mode-section-title">暗記モード</h2>
+                    <div className="mode-grid">
+                        {MEMORY_MENU_MODES.map((menuMode) => (
+                            <button
+                                key={menuMode.mode}
+                                onClick={() => onSelectMode(menuMode.mode)}
+                                className="glass-panel mode-card"
+                            >
+                                <span className="mode-card-icon">{menuMode.icon}</span>
+                                <span className="mode-card-title">{menuMode.title}</span>
+                                <p className="mode-card-description">{menuMode.description}</p>
+                            </button>
+                        ))}
+                    </div>
+                </section>
             </div>
         </div>
     );

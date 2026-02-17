@@ -1,4 +1,12 @@
-export type GameMode = 'flag-to-map' | 'name-to-flag' | 'flag-to-name' | 'map-to-flag';
+export type MemoryRegion = 'americas' | 'europe' | 'africa' | 'asia' | 'oceania';
+
+export type GameMode =
+  | 'flag-to-map'
+  | 'name-to-flag'
+  | 'flag-to-name'
+  | 'map-to-flag'
+  | 'memory-name-to-flag'
+  | 'memory-flag-to-name';
 
 export interface GameSettings {
   maxRounds: number;
@@ -6,7 +14,7 @@ export interface GameSettings {
   highDifficulty: boolean;
 }
 
-export type FlagAttributeCategory = 'color' | 'layout' | 'motif' | 'group';
+export type FlagAttributeCategory = 'color' | 'layout' | 'motif' | 'group' | 'region';
 
 export type FlagAttributes = Partial<Record<FlagAttributeCategory, string[]>>;
 

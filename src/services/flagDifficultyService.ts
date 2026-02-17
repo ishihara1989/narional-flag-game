@@ -1,9 +1,10 @@
 import type { Country, FlagAttributes } from '../types';
 
 const COLOR_ATTRIBUTE_KEY = 'color';
+const REGION_ATTRIBUTE_KEY = 'region';
 const HARD_MODE_CANDIDATE_LIMIT = 15;
 
-const NON_COLOR_ATTRIBUTE_KEYS: Array<Exclude<keyof FlagAttributes, 'color'>> = [
+const FULL_WEIGHT_ATTRIBUTE_KEYS: Array<Exclude<keyof FlagAttributes, 'color' | 'region'>> = [
   'layout',
   'motif',
   'group'
@@ -46,7 +47,7 @@ const getSimilarityScore = (
 ): number => {
   let score = 0;
 
-  NON_COLOR_ATTRIBUTE_KEYS.forEach((attributeKey) => {
+  FULL_WEIGHT_ATTRIBUTE_KEYS.forEach((attributeKey) => {
     const sourceSet = toTagSet(sourceAttributes[attributeKey]);
     const candidateSet = toTagSet(candidateAttributes[attributeKey]);
     score += countSharedTags(sourceSet, candidateSet);
@@ -55,6 +56,10 @@ const getSimilarityScore = (
   const sourceColorSet = toTagSet(sourceAttributes[COLOR_ATTRIBUTE_KEY]);
   const candidateColorSet = toTagSet(candidateAttributes[COLOR_ATTRIBUTE_KEY]);
   score += countSharedTags(sourceColorSet, candidateColorSet) * 0.5;
+
+  const sourceRegionSet = toTagSet(sourceAttributes[REGION_ATTRIBUTE_KEY]);
+  const candidateRegionSet = toTagSet(candidateAttributes[REGION_ATTRIBUTE_KEY]);
+  score += countSharedTags(sourceRegionSet, candidateRegionSet) * 0.5;
 
   if (sourceColorSet.size > 0 && hasSameTags(sourceColorSet, candidateColorSet)) {
     score += 1;

@@ -7,7 +7,7 @@ export const CountryService = {
     getAllCountries: async (): Promise<Country[]> => {
         try {
             const response = await axios.get<Country[]>(
-                `${API_URL}/all?fields=name,flags,latlng,cca2,cca3,translations,area,unMember`
+                `${API_URL}/all?fields=name,flags,latlng,cca2,cca3,translations,area,unMember,region,subregion`
             );
             // Keep only UN member states and countries with necessary game data.
             // Normalize flag URLs by ISO code to avoid inconsistent upstream flag assets.

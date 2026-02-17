@@ -1,5 +1,12 @@
 import { useEffect, useState, type CSSProperties } from 'react';
-import type { Country, FlagAttributes, GameMode, GameSettings, GameState } from './types';
+import type {
+  Country,
+  FlagAttributes,
+  GameMode,
+  GameSettings,
+  GameState,
+  MemoryRegion
+} from './types';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { CountryService } from './services/countryService';
 import { buildFlagAttributesByCca3, pickHardModeDistractors } from './services/flagDifficultyService';
@@ -10,7 +17,9 @@ import FlagCard from './components/FlagCard';
 import L from 'leaflet';
 import axios from 'axios';
 
-type ChoiceMode = 'name-to-flag' | 'flag-to-name';
+type StandardChoiceMode = 'name-to-flag' | 'flag-to-name';
+type MemoryChoiceMode = 'memory-name-to-flag' | 'memory-flag-to-name';
+type ChoiceMode = StandardChoiceMode;
 
 type ChoiceReviewItem = {
   id: string;
@@ -26,6 +35,22 @@ type ChoiceReviewItem = {
 type RoundPlanItem = {
   questionCountry: Country;
   options: Country[];
+};
+
+const MEMORY_REGIONS: MemoryRegion[] = ['americas', 'europe', 'africa', 'asia', 'oceania'];
+const MEMORY_REGION_LABELS: Record<MemoryRegion, string> = {
+  americas: '南北アメリカ',
+  europe: 'ヨーロッパ',
+  africa: 'アフリカ',
+  asia: 'アジア',
+  oceania: 'オセアニア'
+};
+const COUNTRY_REGION_TO_MEMORY_REGION: Record<string, MemoryRegion> = {
+  Americas: 'americas',
+  Europe: 'europe',
+  Africa: 'africa',
+  Asia: 'asia',
+  Oceania: 'oceania'
 };
 
 const DEFAULT_SETTINGS: GameSettings = {
@@ -85,7 +110,22 @@ const shuffleCountries = (source: Country[]): Country[] => {
   return shuffled;
 };
 
+const isMemoryMode = (mode: GameMode): mode is MemoryChoiceMode =>
+  mode === 'memory-name-to-flag' || mode === 'memory-flag-to-name';
+
+const isStandardChoiceMode = (mode: GameMode): mode is StandardChoiceMode =>
+  mode === 'name-to-flag' || mode === 'flag-to-name';
+
+const isNameToFlagMode = (mode: GameMode): mode is 'name-to-flag' | 'memory-name-to-flag' =>
+  mode === 'name-to-flag' || mode === 'memory-name-to-flag';
+
+const isFlagToNameMode = (mode: GameMode): mode is 'flag-to-name' | 'memory-flag-to-name' =>
+  mode === 'flag-to-name' || mode === 'memory-flag-to-name';
+
 const modeUsesOptions = (mode: GameMode): boolean => mode !== 'flag-to-map';
+
+const getMemoryRegionForCountry = (country: Country): MemoryRegion | null =>
+  COUNTRY_REGION_TO_MEMORY_REGION[country.region] ?? null;
 
 const pickRandomCountries = (source: Country[], count: number): Country[] =>
   shuffleCountries(source).slice(0, count);
@@ -94,10 +134,45 @@ const buildRoundPlan = (
   mode: GameMode,
   validCountries: Country[],
   settings: GameSettings,
-  attributesByCca3: Record<string, FlagAttributes>
+  attributesByCca3: Record<string, FlagAttributes>,
+  memoryRegion: MemoryRegion | null
 ): RoundPlanItem[] | null => {
   const maxRounds = Math.max(MIN_ROUNDS, Math.min(MAX_ROUNDS, settings.maxRounds));
   const optionCount = Math.max(MIN_OPTION_COUNT, Math.min(MAX_OPTION_COUNT, settings.optionCount));
+
+  if (isMemoryMode(mode)) {
+    if (!memoryRegion) return null;
+
+    const regionCountries = shuffleCountries(
+      validCountries.filter((country) => getMemoryRegionForCountry(country) === memoryRegion)
+    );
+    if (regionCountries.length < MIN_OPTION_COUNT) return null;
+
+    const effectiveOptionCount = Math.min(optionCount, regionCountries.length);
+    const roundPlan: RoundPlanItem[] = [];
+
+    for (const questionCountry of regionCountries) {
+      const candidates = regionCountries.filter((country) => country.cca3 !== questionCountry.cca3);
+      const distractorCount = effectiveOptionCount - 1;
+      const distractors = settings.highDifficulty
+        ? pickHardModeDistractors(
+          questionCountry,
+          candidates,
+          distractorCount,
+          attributesByCca3
+        )
+        : pickRandomCountries(candidates, distractorCount);
+
+      if (distractors.length < distractorCount) return null;
+
+      roundPlan.push({
+        questionCountry,
+        options: shuffleCountries([questionCountry, ...distractors])
+      });
+    }
+
+    return roundPlan;
+  }
 
   if (modeUsesOptions(mode)) {
     const requiredCountries = maxRounds * optionCount;
@@ -164,6 +239,8 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [roundPlan, setRoundPlan] = useState<RoundPlanItem[]>([]);
   const [attributesByCca3, setAttributesByCca3] = useState<Record<string, FlagAttributes>>({});
+  const [pendingMemoryMode, setPendingMemoryMode] = useState<MemoryChoiceMode | null>(null);
+  const [activeMemoryRegion, setActiveMemoryRegion] = useState<MemoryRegion | null>(null);
 
   const [gameState, setGameState] = useState<GameState>({
     score: 0,
@@ -201,7 +278,7 @@ function App() {
         const geoRes = await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json');
         setGeoData(geoRes.data);
       } catch (e) {
-        console.error("Failed to load GeoJSON", e);
+        console.error('Failed to load GeoJSON', e);
       }
 
       setLoading(false);
@@ -241,21 +318,21 @@ function App() {
   };
 
   const returnToMenu = () => {
-    setGameState(prev => ({ ...prev, mode: null }));
+    setGameState((prev) => ({ ...prev, mode: null }));
     setRoundPlan([]);
     setClickedLocation(null);
+    setPendingMemoryMode(null);
+    setActiveMemoryRegion(null);
   };
 
-  const startGame = (mode: GameState['mode']) => {
-    if (!mode) return;
-
-    if (mode === 'name-to-flag' || mode === 'flag-to-name') {
+  const launchGame = (mode: GameMode, memoryRegion: MemoryRegion | null = null) => {
+    if (isStandardChoiceMode(mode)) {
       setChoiceReview([]);
       setChoiceSummary(null);
     }
 
     const validCountries = countries.filter((country) => country.flags && country.flags.svg);
-    const newRoundPlan = buildRoundPlan(mode, validCountries, gameSettings, attributesByCca3);
+    const newRoundPlan = buildRoundPlan(mode, validCountries, gameSettings, attributesByCca3, memoryRegion);
 
     if (!newRoundPlan || newRoundPlan.length === 0) {
       window.alert('ゲームデータが不足しているため、この設定では開始できません。');
@@ -264,7 +341,26 @@ function App() {
 
     setRoundPlan(newRoundPlan);
     setShowSettings(false);
+    setPendingMemoryMode(null);
+    setActiveMemoryRegion(isMemoryMode(mode) ? memoryRegion : null);
     startRound(1, 0, mode, newRoundPlan);
+  };
+
+  const startGame = (mode: GameState['mode']) => {
+    if (!mode) return;
+
+    if (isMemoryMode(mode)) {
+      setShowSettings(false);
+      setPendingMemoryMode(mode);
+      return;
+    }
+
+    launchGame(mode, null);
+  };
+
+  const startMemoryGame = (region: MemoryRegion) => {
+    if (!pendingMemoryMode) return;
+    launchGame(pendingMemoryMode, region);
   };
 
   const handleMapClick = (latlng: L.LatLng) => {
@@ -278,15 +374,15 @@ function App() {
     const distanceComponent = latlng.distanceTo(L.latLng(targetLat, targetLng)); // meters
 
     // Heuristic: Base 500km, plus extra for large countries
-    // Area is km2. 
-    // If area is 1,000,000 km2 -> sqrt is 1000km. 
+    // Area is km2.
+    // If area is 1,000,000 km2 -> sqrt is 1000km.
     const area = gameState.currentCountry.area || 0;
     const radiusEstimate = Math.sqrt(area / Math.PI) * 1000; // rough meters radius
     const threshold = Math.max(500000, radiusEstimate * 1.5);
 
     const isCorrect = distanceComponent < threshold;
 
-    setGameState(prev => ({
+    setGameState((prev) => ({
       ...prev,
       score: isCorrect ? prev.score + 100 : prev.score,
       showResult: true,
@@ -299,9 +395,9 @@ function App() {
 
     const currentCountry = gameState.currentCountry;
     const isCorrect = selected.cca3 === currentCountry.cca3;
-    if (gameState.mode === 'name-to-flag' || gameState.mode === 'flag-to-name') {
+    if (gameState.mode && isStandardChoiceMode(gameState.mode)) {
       const choiceMode: ChoiceMode = gameState.mode;
-      setChoiceReview(prev => [
+      setChoiceReview((prev) => [
         ...prev,
         {
           id: `${gameState.round}-${currentCountry.cca3}-${selected.cca3}`,
@@ -316,7 +412,7 @@ function App() {
       ]);
     }
 
-    setGameState(prev => ({
+    setGameState((prev) => ({
       ...prev,
       score: isCorrect ? prev.score + 100 : prev.score,
       showResult: true,
@@ -329,7 +425,7 @@ function App() {
     if (!gameState.mode) return;
 
     if (gameState.round >= gameState.maxRounds) {
-      if (gameState.mode === 'name-to-flag' || gameState.mode === 'flag-to-name') {
+      if (isStandardChoiceMode(gameState.mode)) {
         setChoiceSummary({
           mode: gameState.mode,
           score: gameState.score,
@@ -347,8 +443,9 @@ function App() {
   };
 
   // Find GeoJSON feature
-  const currentGeoFeature = (gameState.currentCountry && geoData) ?
-    (geoData.features.find((f) => f.id === gameState.currentCountry?.cca3) ?? null) : null;
+  const currentGeoFeature = (gameState.currentCountry && geoData)
+    ? (geoData.features.find((f) => f.id === gameState.currentCountry?.cca3) ?? null)
+    : null;
   const closeChoiceSummary = () => {
     setChoiceSummary(null);
     setChoiceReview([]);
@@ -357,12 +454,23 @@ function App() {
   const optionGridStyle: CSSProperties = {
     gridTemplateColumns: `repeat(${getOptionGridColumns(gameState.options.length)}, minmax(0, 1fr))`
   };
+  const isCurrentMemoryMode = Boolean(gameState.mode && isMemoryMode(gameState.mode));
+  const isCurrentNameToFlagMode = Boolean(gameState.mode && isNameToFlagMode(gameState.mode));
+  const isCurrentFlagToNameMode = Boolean(gameState.mode && isFlagToNameMode(gameState.mode));
+  const getChoiceOptionHighlightClass = (country: Country): string => {
+    const isSelected = gameState.selectedOptionCca3 === country.cca3;
+    const isCorrectOption = country.cca3 === gameState.currentCountry?.cca3;
+    if (!gameState.showResult) return '';
+    if (isCorrectOption) return 'choice-option-correct';
+    if (!gameState.lastGuessCorrect && isSelected) return 'choice-option-wrong';
+    return 'choice-option-neutral';
+  };
 
   if (loading) return <div className="text-white flex justify-center items-center h-screen">Loading Globe Data...</div>;
 
   return (
     <div className="w-full h-screen flex flex-col items-center bg-gray-900 text-white overflow-hidden relative">
-      {!gameState.mode && !choiceSummary && !showSettings && (
+      {!gameState.mode && !choiceSummary && !showSettings && !pendingMemoryMode && (
         <MainMenu
           onSelectMode={startGame}
           settings={gameSettings}
@@ -375,6 +483,33 @@ function App() {
           onChangeSettings={setGameSettings}
           onBack={() => setShowSettings(false)}
         />
+      )}
+      {!gameState.mode && !choiceSummary && !showSettings && pendingMemoryMode && (
+        <div className="memory-region-menu glass-panel">
+          <h2 className="memory-region-title">暗記モード: 地域を選択</h2>
+          <p className="memory-region-subtitle">
+            {pendingMemoryMode === 'memory-name-to-flag'
+              ? '国名 → 国旗で出題します'
+              : '国旗 → 国名で出題します'}
+          </p>
+          <div className="memory-region-grid">
+            {MEMORY_REGIONS.map((region) => (
+              <button
+                key={region}
+                onClick={() => startMemoryGame(region)}
+                className="btn-glass memory-region-button"
+              >
+                {MEMORY_REGION_LABELS[region]}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => setPendingMemoryMode(null)}
+            className="btn-glass memory-region-back"
+          >
+            メインメニューへ戻る
+          </button>
+        </div>
       )}
 
       {!gameState.mode && choiceSummary && (
@@ -489,7 +624,12 @@ function App() {
         <div className="w-full h-full relative flex flex-col">
           {/* Top Bar Stats */}
           <div className="absolute top-0 w-full z-[1001] bg-gradient-to-b from-black/80 to-transparent p-4 flex justify-between items-center px-8 pointer-events-none">
-            <div className="text-xl font-bold drop-shadow-md">Round {gameState.round} / {gameState.maxRounds}</div>
+            <div className="text-xl font-bold drop-shadow-md">
+              <div>Round {gameState.round} / {gameState.maxRounds}</div>
+              {isCurrentMemoryMode && activeMemoryRegion && (
+                <div className="memory-active-region-label">{MEMORY_REGION_LABELS[activeMemoryRegion]}</div>
+              )}
+            </div>
             <div className="text-2xl font-bold text-yellow-400 drop-shadow-md">Score: {gameState.score}</div>
             <button className="pointer-events-auto bg-white/20 hover:bg-white/30 px-3 py-1 rounded backdrop-blur-sm" onClick={returnToMenu}>Exit</button>
           </div>
@@ -517,38 +657,68 @@ function App() {
                   onMapClick={handleMapClick}
                   height="100vh"
                   markers={
-                    gameState.showResult && gameState.currentCountry ?
-                      [{ lat: gameState.currentCountry.latlng[0], lng: gameState.currentCountry.latlng[1], message: CountryService.getJapaneseName(gameState.currentCountry) }]
-                      : (clickedLocation ? [{ lat: clickedLocation.lat, lng: clickedLocation.lng, message: "Your guess" }] : [])
+                    gameState.showResult && gameState.currentCountry
+                      ? [{
+                        lat: gameState.currentCountry.latlng[0],
+                        lng: gameState.currentCountry.latlng[1],
+                        message: CountryService.getJapaneseName(gameState.currentCountry)
+                      }]
+                      : (clickedLocation ? [{ lat: clickedLocation.lat, lng: clickedLocation.lng, message: 'Your guess' }] : [])
                   }
                 />
               </div>
             </>
           )}
 
-          {/* Mode 2: Name -> Flag */}
-          {gameState.mode === 'name-to-flag' && (
+          {/* Mode 2 & Memory: Name -> Flag */}
+          {isCurrentNameToFlagMode && (
             <div className="name-to-flag-mode">
+              {isCurrentMemoryMode && activeMemoryRegion && (
+                <p className="memory-mode-caption">暗記モード: {MEMORY_REGION_LABELS[activeMemoryRegion]}</p>
+              )}
               <h2 className="name-to-flag-title">
                 {CountryService.getJapaneseName(gameState.currentCountry)}
               </h2>
               <div className="name-to-flag-options-grid" style={optionGridStyle}>
                 {gameState.options.map((country) => (
-                  <div key={country.cca3} className="name-to-flag-option">
-                    <FlagCard
-                      flagUrl={country.flags.svg}
-                      size="md"
-                      imageFit="fill"
-                      fitToContainer
-                      onClick={() => handleOptionSelect(country)}
-                      className={`name-to-flag-card
-                        ${gameState.showResult && country.cca3 === gameState.currentCountry?.cca3 ? 'flag-choice-correct' : ''}
-                        ${gameState.showResult && country.cca3 !== gameState.currentCountry?.cca3 ? 'flag-choice-wrong' : ''}
-                      `}
-                    />
-                  </div>
+                  <button
+                    key={country.cca3}
+                    onClick={() => handleOptionSelect(country)}
+                    disabled={gameState.showResult}
+                    className={`choice-option-button ${getChoiceOptionHighlightClass(country)}`}
+                  >
+                    <div className="choice-option-flag-wrap">
+                      <img
+                        src={country.flags.svg}
+                        alt={CountryService.getJapaneseName(country)}
+                        className="choice-option-flag"
+                      />
+                    </div>
+                    {gameState.showResult && (
+                      <span className="choice-option-name">{CountryService.getJapaneseName(country)}</span>
+                    )}
+                  </button>
                 ))}
               </div>
+              {gameState.showResult && (
+                <div className="choice-answer-map-shell">
+                  <p className="choice-answer-map-title">
+                    正解の位置: {CountryService.getJapaneseName(gameState.currentCountry)}
+                  </p>
+                  <MapBoard
+                    center={gameState.currentCountry.latlng}
+                    zoom={3}
+                    height="280px"
+                    markers={[
+                      {
+                        lat: gameState.currentCountry.latlng[0],
+                        lng: gameState.currentCountry.latlng[1],
+                        message: CountryService.getJapaneseName(gameState.currentCountry)
+                      }
+                    ]}
+                  />
+                </div>
+              )}
               {gameState.showResult && (
                 <div className="name-to-flag-next">
                   <button onClick={nextRound} className="btn-glass">Next Round ➡</button>
@@ -557,9 +727,12 @@ function App() {
             </div>
           )}
 
-          {/* Mode 3: Flag -> Name */}
-          {gameState.mode === 'flag-to-name' && (
+          {/* Mode 3 & Memory: Flag -> Name */}
+          {isCurrentFlagToNameMode && (
             <div className="name-to-flag-mode">
+              {isCurrentMemoryMode && activeMemoryRegion && (
+                <p className="memory-mode-caption">暗記モード: {MEMORY_REGION_LABELS[activeMemoryRegion]}</p>
+              )}
               <h2 className="name-to-flag-title">この国旗の国名は？</h2>
               <div className="mb-5">
                 <FlagCard
@@ -570,26 +743,45 @@ function App() {
                 />
               </div>
               <div className="flag-to-name-options-grid" style={optionGridStyle}>
-                {gameState.options.map((country) => {
-                  const isSelected = gameState.selectedOptionCca3 === country.cca3;
-                  const isCorrectOption = country.cca3 === gameState.currentCountry?.cca3;
-                  const highlightClass = !gameState.showResult
-                    ? ''
-                    : (isCorrectOption
-                      ? 'flag-to-name-choice-correct'
-                      : (!gameState.lastGuessCorrect && isSelected ? 'flag-to-name-choice-wrong' : 'flag-to-name-choice-neutral'));
-
-                  return (
-                    <button
-                      key={country.cca3}
-                      onClick={() => handleOptionSelect(country)}
-                      className={`flag-to-name-option-button ${highlightClass}`}
-                    >
-                      {CountryService.getJapaneseName(country)}
-                    </button>
-                  );
-                })}
+                {gameState.options.map((country) => (
+                  <button
+                    key={country.cca3}
+                    onClick={() => handleOptionSelect(country)}
+                    disabled={gameState.showResult}
+                    className={`choice-option-button ${!gameState.showResult ? 'choice-option-button-text-only' : ''} ${getChoiceOptionHighlightClass(country)}`}
+                  >
+                    {gameState.showResult && (
+                      <div className="choice-option-flag-wrap">
+                        <img
+                          src={country.flags.svg}
+                          alt={CountryService.getJapaneseName(country)}
+                          className="choice-option-flag"
+                        />
+                      </div>
+                    )}
+                    <span className="choice-option-name">{CountryService.getJapaneseName(country)}</span>
+                  </button>
+                ))}
               </div>
+              {gameState.showResult && (
+                <div className="choice-answer-map-shell">
+                  <p className="choice-answer-map-title">
+                    正解の位置: {CountryService.getJapaneseName(gameState.currentCountry)}
+                  </p>
+                  <MapBoard
+                    center={gameState.currentCountry.latlng}
+                    zoom={3}
+                    height="280px"
+                    markers={[
+                      {
+                        lat: gameState.currentCountry.latlng[0],
+                        lng: gameState.currentCountry.latlng[1],
+                        message: CountryService.getJapaneseName(gameState.currentCountry)
+                      }
+                    ]}
+                  />
+                </div>
+              )}
               {gameState.showResult && (
                 <div className="name-to-flag-next">
                   <button onClick={nextRound} className="btn-glass">Next Round ➡</button>
@@ -607,9 +799,9 @@ function App() {
                   center={gameState.currentCountry.latlng}
                   zoom={3}
                   height="100%"
-                  markers={
-                    [{ lat: gameState.currentCountry.latlng[0], lng: gameState.currentCountry.latlng[1], message: "Target" }]
-                  }
+                  markers={[
+                    { lat: gameState.currentCountry.latlng[0], lng: gameState.currentCountry.latlng[1], message: 'Target' }
+                  ]}
                 />
               </div>
 

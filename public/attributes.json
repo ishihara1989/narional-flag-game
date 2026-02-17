@@ -8,7 +8,10 @@
         "layout": [
             "nordic"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "アイルランド": {
         "color": [
@@ -19,7 +22,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "アゼルバイジャン": {
         "color": [
@@ -35,6 +41,9 @@
         ],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "アフガニスタン": {
@@ -48,6 +57,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "アメリカ合衆国": {
@@ -65,6 +77,9 @@
         ],
         "group": [
             "stars_and_stripes"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "アラブ首長国連邦": {
@@ -80,6 +95,9 @@
         "motif": [],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "アルジェリア": {
@@ -93,6 +111,9 @@
         ],
         "motif": [
             "crescent_star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "アルゼンチン": {
@@ -105,6 +126,9 @@
         ],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "アルバニア": {
@@ -115,6 +139,9 @@
         "layout": [],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "アルメニア": {
@@ -126,7 +153,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "asia"
+        ]
     },
     "アンゴラ": {
         "color": [
@@ -139,6 +169,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "アンティグア・バーブーダ": {
@@ -154,6 +187,9 @@
         ],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "アンドラ": {
@@ -167,6 +203,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "イエメン": {
@@ -181,6 +220,9 @@
         "motif": [],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "イギリス": {
@@ -196,6 +238,9 @@
         "motif": [],
         "group": [
             "union_jack"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "イスラエル": {
@@ -208,6 +253,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "イタリア": {
@@ -219,7 +267,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "イラク": {
         "color": [
@@ -236,6 +287,9 @@
         ],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "イラン": {
@@ -249,6 +303,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "インド": {
@@ -262,6 +319,9 @@
         ],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "インドネシア": {
@@ -272,7 +332,10 @@
         "layout": [
             "bicolor_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "asia"
+        ]
     },
     "ウガンダ": {
         "color": [
@@ -286,6 +349,9 @@
         "motif": [
             "circle",
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ウクライナ": {
@@ -296,7 +362,10 @@
         "layout": [
             "bicolor_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ウズベキスタン": {
         "color": [
@@ -310,6 +379,9 @@
         ],
         "motif": [
             "crescent_star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ウルグアイ": {
@@ -324,6 +396,9 @@
         ],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "エクアドル": {
@@ -337,6 +412,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "エジプト": {
@@ -353,6 +431,9 @@
         ],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "エストニア": {
@@ -364,7 +445,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "エスワティニ": {
         "color": [
@@ -377,6 +461,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "エチオピア": {
@@ -393,6 +480,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "エリトリア": {
@@ -406,6 +496,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "エルサルバドル": {
@@ -421,6 +514,9 @@
         ],
         "group": [
             "central_america"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "オーストラリア": {
@@ -437,6 +533,9 @@
         ],
         "group": [
             "union_jack"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "オーストリア": {
@@ -447,7 +546,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "オマーン": {
         "color": [
@@ -463,6 +565,9 @@
         ],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "オランダ": {
@@ -474,7 +579,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ガーナ": {
         "color": [
@@ -490,6 +598,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "カーボベルデ": {
@@ -504,6 +615,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ガイアナ": {
@@ -517,7 +631,10 @@
         "layout": [
             "triangle"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "americas"
+        ]
     },
     "カザフスタン": {
         "color": [
@@ -528,6 +645,9 @@
         "motif": [
             "sun",
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "カタール": {
@@ -538,7 +658,10 @@
         "layout": [
             "bicolor_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "asia"
+        ]
     },
     "カナダ": {
         "color": [
@@ -550,6 +673,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ガボン": {
@@ -561,7 +687,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "カメルーン": {
         "color": [
@@ -577,6 +706,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ガンビア": {
@@ -589,7 +721,10 @@
         "layout": [
             "stripes"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "カンボジア": {
         "color": [
@@ -601,6 +736,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "北マケドニア": {
@@ -611,6 +749,9 @@
         "layout": [],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "ギニア": {
@@ -625,6 +766,9 @@
         "motif": [],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ギニアビサウ": {
@@ -641,6 +785,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "キプロス": {
@@ -652,6 +799,9 @@
         "layout": [],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "キューバ": {
@@ -666,6 +816,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ギリシャ": {
@@ -679,6 +832,9 @@
         ],
         "motif": [
             "cross"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "キリバス": {
@@ -694,6 +850,9 @@
         "motif": [
             "sun",
             "emblem"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "キルギス": {
@@ -704,6 +863,9 @@
         "layout": [],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "グアテマラ": {
@@ -719,6 +881,9 @@
         ],
         "group": [
             "central_america"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "クウェート": {
@@ -735,6 +900,9 @@
         "motif": [],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "クック諸島": {
@@ -751,6 +919,9 @@
         ],
         "group": [
             "union_jack"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "グレナダ": {
@@ -763,6 +934,9 @@
         "motif": [
             "star",
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "クロアチア": {
@@ -779,6 +953,9 @@
         ],
         "group": [
             "pan_slavic"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "ケニア": {
@@ -793,6 +970,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "コートジボワール": {
@@ -804,7 +984,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "コスタリカ": {
         "color": [
@@ -817,6 +1000,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "コモロ": {
@@ -833,6 +1019,9 @@
         ],
         "motif": [
             "crescent_star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "コロンビア": {
@@ -844,7 +1033,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "americas"
+        ]
     },
     "コンゴ共和国": {
         "color": [
@@ -858,6 +1050,9 @@
         "motif": [],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "コンゴ民主共和国": {
@@ -871,6 +1066,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "サウジアラビア": {
@@ -881,6 +1079,9 @@
         "layout": [],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "サモア": {
@@ -894,6 +1095,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "サントメ・プリンシペ": {
@@ -911,6 +1115,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ザンビア": {
@@ -923,6 +1130,9 @@
         "layout": [],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "サンマリノ": {
@@ -935,6 +1145,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "シエラレオネ": {
@@ -946,7 +1159,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "ジブチ": {
         "color": [
@@ -961,6 +1177,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ジャマイカ": {
@@ -972,7 +1191,10 @@
         "layout": [
             "saltire"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "americas"
+        ]
     },
     "ジョージア": {
         "color": [
@@ -984,6 +1206,9 @@
         ],
         "motif": [
             "cross"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "シリア": {
@@ -1001,6 +1226,9 @@
         ],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "シンガポール": {
@@ -1013,6 +1241,9 @@
         ],
         "motif": [
             "crescent_star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ジンバブエ": {
@@ -1030,6 +1261,9 @@
         "motif": [
             "star",
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "スイス": {
@@ -1040,7 +1274,10 @@
         "layout": [
             "cross"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "スウェーデン": {
         "color": [
@@ -1050,7 +1287,10 @@
         "layout": [
             "nordic"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "スーダン": {
         "color": [
@@ -1066,6 +1306,9 @@
         "motif": [],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "スペイン": {
@@ -1078,6 +1321,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "スリナム": {
@@ -1092,6 +1338,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "スリランカ": {
@@ -1104,6 +1353,9 @@
         "layout": [],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "スロバキア": {
@@ -1120,6 +1372,9 @@
         ],
         "group": [
             "pan_slavic"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "スロベニア": {
@@ -1136,6 +1391,9 @@
         ],
         "group": [
             "pan_slavic"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "セーシェル": {
@@ -1149,7 +1407,10 @@
         "layout": [
             "diagonal"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "赤道ギニア": {
         "color": [
@@ -1164,6 +1425,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "セネガル": {
@@ -1180,6 +1444,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "セルビア": {
@@ -1196,6 +1463,9 @@
         ],
         "group": [
             "pan_slavic"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "セントクリストファー・ネイビス": {
@@ -1211,6 +1481,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "セントビンセント・グレナディーン": {
@@ -1224,6 +1497,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "セントルシア": {
@@ -1236,6 +1512,9 @@
         "layout": [],
         "motif": [
             "triangle"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ソマリア": {
@@ -1246,6 +1525,9 @@
         "layout": [],
         "motif": [
             "star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ソロモン諸島": {
@@ -1260,6 +1542,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "タイ": {
@@ -1271,7 +1556,10 @@
         "layout": [
             "stripes"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "asia"
+        ]
     },
     "大韓民国": {
         "color": [
@@ -1284,6 +1572,9 @@
         "motif": [
             "sun",
             "circle"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "タジキスタン": {
@@ -1298,6 +1589,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "タンザニア": {
@@ -1310,7 +1604,10 @@
         "layout": [
             "diagonal"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "チェコ": {
         "color": [
@@ -1322,7 +1619,10 @@
             "bicolor_h",
             "triangle"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "チャド": {
         "color": [
@@ -1333,7 +1633,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "中央アフリカ": {
         "color": [
@@ -1348,6 +1651,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "中華人民共和国": {
@@ -1360,6 +1666,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "チュニジア": {
@@ -1371,6 +1680,9 @@
         "motif": [
             "circle",
             "crescent_star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "チリ": {
@@ -1385,6 +1697,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ツバル": {
@@ -1402,6 +1717,9 @@
         ],
         "group": [
             "union_jack"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "デンマーク": {
@@ -1412,7 +1730,10 @@
         "layout": [
             "nordic"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ドイツ": {
         "color": [
@@ -1423,7 +1744,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "トーゴ": {
         "color": [
@@ -1441,6 +1765,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ドミニカ共和国": {
@@ -1454,6 +1781,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ドミニカ国": {
@@ -1470,6 +1800,9 @@
         "motif": [
             "circle",
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "トリニダード・トバゴ": {
@@ -1481,7 +1814,10 @@
         "layout": [
             "diagonal"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "americas"
+        ]
     },
     "トルクメニスタン": {
         "color": [
@@ -1493,6 +1829,9 @@
         "motif": [
             "crescent_star",
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "トルコ": {
@@ -1503,6 +1842,9 @@
         "layout": [],
         "motif": [
             "crescent_star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "トンガ": {
@@ -1515,6 +1857,9 @@
         ],
         "motif": [
             "cross"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "ナイジェリア": {
@@ -1525,7 +1870,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "ナウル": {
         "color": [
@@ -1538,6 +1886,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "ナミビア": {
@@ -1553,6 +1904,9 @@
         ],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ニカラグア": {
@@ -1568,6 +1922,9 @@
         ],
         "group": [
             "central_america"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ニジェール": {
@@ -1581,6 +1938,9 @@
         ],
         "motif": [
             "circle"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "日本": {
@@ -1592,6 +1952,9 @@
         "motif": [
             "sun",
             "circle"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ニュージーランド": {
@@ -1608,6 +1971,9 @@
         ],
         "group": [
             "union_jack"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "ネパール": {
@@ -1620,6 +1986,9 @@
         "motif": [
             "sun",
             "moon"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ノルウェー": {
@@ -1631,7 +2000,10 @@
         "layout": [
             "nordic"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "バーレーン": {
         "color": [
@@ -1641,7 +2013,10 @@
         "layout": [
             "bicolor_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "asia"
+        ]
     },
     "ハイチ": {
         "color": [
@@ -1653,6 +2028,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "パキスタン": {
@@ -1665,6 +2043,9 @@
         ],
         "motif": [
             "crescent_star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "バナツ": {
@@ -1679,6 +2060,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "パナマ": {
@@ -1690,6 +2074,9 @@
         "layout": [],
         "motif": [
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "バハマ": {
@@ -1702,7 +2089,10 @@
             "tri_h",
             "triangle"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "americas"
+        ]
     },
     "パプアニューギニア": {
         "color": [
@@ -1717,6 +2107,9 @@
         "motif": [
             "star",
             "emblem"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "パラオ": {
@@ -1728,6 +2121,9 @@
         "motif": [
             "sun",
             "circle"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "パラグアイ": {
@@ -1741,6 +2137,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "バルバドス": {
@@ -1754,6 +2153,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ハンガリー": {
@@ -1765,7 +2167,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "バングラデシュ": {
         "color": [
@@ -1776,6 +2181,9 @@
         "motif": [
             "sun",
             "circle"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "東ティモール": {
@@ -1790,6 +2198,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "フィジー": {
@@ -1807,6 +2218,9 @@
         ],
         "group": [
             "union_jack"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "フィリピン": {
@@ -1823,6 +2237,9 @@
         "motif": [
             "sun",
             "star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "フィンランド": {
@@ -1833,7 +2250,10 @@
         "layout": [
             "nordic"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ブータン": {
         "color": [
@@ -1846,6 +2266,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ブラジル": {
@@ -1859,6 +2282,9 @@
         "motif": [
             "circle",
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "フランス": {
@@ -1870,7 +2296,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ブルガリア": {
         "color": [
@@ -1881,7 +2310,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ブルキナファソ": {
         "color": [
@@ -1897,6 +2329,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ブルンジ": {
@@ -1911,6 +2346,9 @@
         "motif": [
             "star",
             "circle"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ベトナム": {
@@ -1921,6 +2359,9 @@
         "layout": [],
         "motif": [
             "star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ベニン": {
@@ -1935,6 +2376,9 @@
         "motif": [],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ベネズエラ": {
@@ -1949,6 +2393,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ベラルーシ": {
@@ -1962,6 +2409,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "ベリーズ": {
@@ -1976,6 +2426,9 @@
         "motif": [
             "emblem",
             "circle"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ベルギー": {
@@ -1987,7 +2440,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ペルー": {
         "color": [
@@ -1997,7 +2453,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "americas"
+        ]
     },
     "ポーランド": {
         "color": [
@@ -2007,7 +2466,10 @@
         "layout": [
             "bicolor_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ボスニア・ヘルツェゴビナ": {
         "color": [
@@ -2020,6 +2482,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "ボツワナ": {
@@ -2031,7 +2496,10 @@
         "layout": [
             "stripes"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "ボリビア": {
         "color": [
@@ -2047,6 +2515,9 @@
         ],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "ポルトガル": {
@@ -2060,6 +2531,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "ホンジュラス": {
@@ -2075,6 +2549,9 @@
         ],
         "group": [
             "central_america"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "マーシャル諸島": {
@@ -2088,6 +2565,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "マダガスカル": {
@@ -2099,7 +2579,10 @@
         "layout": [
             "triangle"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "マラウイ": {
         "color": [
@@ -2112,6 +2595,9 @@
         ],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "マリ": {
@@ -2126,6 +2612,9 @@
         "motif": [],
         "group": [
             "pan_african"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "マルタ": {
@@ -2138,6 +2627,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "マレーシア": {
@@ -2156,6 +2648,9 @@
         ],
         "group": [
             "stars_and_stripes"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ミクロネシア連邦": {
@@ -2166,6 +2661,9 @@
         "layout": [],
         "motif": [
             "star"
+        ],
+        "region": [
+            "oceania"
         ]
     },
     "南アフリカ": {
@@ -2178,7 +2676,10 @@
             "blue"
         ],
         "layout": [],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "南スーダン": {
         "color": [
@@ -2195,6 +2696,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ミャンマー": {
@@ -2209,6 +2713,9 @@
         ],
         "motif": [
             "star"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "メキシコ": {
@@ -2222,6 +2729,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "americas"
         ]
     },
     "モーリシャス": {
@@ -2234,7 +2744,10 @@
         "layout": [
             "stripes"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "africa"
+        ]
     },
     "モーリタニア": {
         "color": [
@@ -2247,6 +2760,9 @@
         ],
         "motif": [
             "crescent_star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "モザンビーク": {
@@ -2264,6 +2780,9 @@
         "motif": [
             "star",
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "モナコ": {
@@ -2274,7 +2793,10 @@
         "layout": [
             "bicolor_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "モルディブ": {
         "color": [
@@ -2287,6 +2809,9 @@
         ],
         "motif": [
             "moon"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "モルドバ": {
@@ -2300,6 +2825,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "モロッコ": {
@@ -2310,6 +2838,9 @@
         "layout": [],
         "motif": [
             "star"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "モンゴル": {
@@ -2323,6 +2854,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "モンテネグロ": {
@@ -2335,6 +2869,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "ヨルダン": {
@@ -2353,6 +2890,9 @@
         ],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ラオス": {
@@ -2366,6 +2906,9 @@
         ],
         "motif": [
             "circle"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ラトビア": {
@@ -2376,7 +2919,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "リトアニア": {
         "color": [
@@ -2387,7 +2933,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "リビア": {
         "color": [
@@ -2404,6 +2953,9 @@
         ],
         "group": [
             "pan_arab"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "リヒテンシュタイン": {
@@ -2417,6 +2969,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "europe"
         ]
     },
     "リベリア": {
@@ -2434,6 +2989,9 @@
         ],
         "group": [
             "stars_and_stripes"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "ルーマニア": {
@@ -2445,7 +3003,10 @@
         "layout": [
             "tri_v"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ルクセンブルク": {
         "color": [
@@ -2456,7 +3017,10 @@
         "layout": [
             "tri_h"
         ],
-        "motif": []
+        "motif": [],
+        "region": [
+            "europe"
+        ]
     },
     "ルワンダ": {
         "color": [
@@ -2469,6 +3033,9 @@
         ],
         "motif": [
             "sun"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "レソト": {
@@ -2483,6 +3050,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "africa"
         ]
     },
     "レバノン": {
@@ -2496,6 +3066,9 @@
         ],
         "motif": [
             "emblem"
+        ],
+        "region": [
+            "asia"
         ]
     },
     "ロシア": {
@@ -2510,6 +3083,9 @@
         "motif": [],
         "group": [
             "pan_slavic"
+        ],
+        "region": [
+            "europe"
         ]
     }
 }
