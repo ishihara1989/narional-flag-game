@@ -3,7 +3,12 @@ export type GameMode = 'flag-to-map' | 'name-to-flag' | 'flag-to-name' | 'map-to
 export interface GameSettings {
   maxRounds: number;
   optionCount: number;
+  highDifficulty: boolean;
 }
+
+export type FlagAttributeCategory = 'color' | 'layout' | 'motif' | 'group';
+
+export type FlagAttributes = Partial<Record<FlagAttributeCategory, string[]>>;
 
 export interface Country {
   name: {

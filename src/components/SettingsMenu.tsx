@@ -32,6 +32,13 @@ const SettingsMenu: FC<SettingsMenuProps> = ({ settings, onChangeSettings, onBac
         });
     };
 
+    const handleHighDifficultyChange = (enabled: boolean) => {
+        onChangeSettings({
+            ...settings,
+            highDifficulty: enabled
+        });
+    };
+
     return (
         <div className="settings-screen glass-panel">
             <h2 className="settings-title">ゲーム設定</h2>
@@ -87,6 +94,19 @@ const SettingsMenu: FC<SettingsMenuProps> = ({ settings, onChangeSettings, onBac
                         className="settings-number-input"
                     />
                 </div>
+            </div>
+
+            <div className="settings-control">
+                <label htmlFor="high-difficulty" className="settings-toggle-label">
+                    <input
+                        id="high-difficulty"
+                        type="checkbox"
+                        checked={settings.highDifficulty}
+                        onChange={(e) => handleHighDifficultyChange(e.target.checked)}
+                        className="settings-checkbox"
+                    />
+                    <span>高難易度モード（類似する国旗が選択肢に出やすくなります）</span>
+                </label>
             </div>
 
             <div className="settings-actions">

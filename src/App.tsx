@@ -1,7 +1,8 @@
 import { useEffect, useState, type CSSProperties } from 'react';
-import type { Country, GameMode, GameSettings, GameState } from './types';
+import type { Country, FlagAttributes, GameMode, GameSettings, GameState } from './types';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { CountryService } from './services/countryService';
+import { buildFlagAttributesByCca3, pickHardModeDistractors } from './services/flagDifficultyService';
 import MainMenu from './components/MainMenu';
 import SettingsMenu from './components/SettingsMenu';
 import MapBoard from './components/MapBoard';
@@ -29,13 +30,51 @@ type RoundPlanItem = {
 
 const DEFAULT_SETTINGS: GameSettings = {
   maxRounds: 5,
-  optionCount: 4
+  optionCount: 4,
+  highDifficulty: false
 };
 
 const MAX_ROUNDS = 10;
 const MAX_OPTION_COUNT = 9;
 const MIN_ROUNDS = 1;
 const MIN_OPTION_COUNT = 2;
+const SETTINGS_STORAGE_KEY = 'national-flag-game-settings-v1';
+
+const clampSettingValue = (value: unknown, min: number, max: number, fallback: number): number => {
+  if (typeof value !== 'number' || Number.isNaN(value)) return fallback;
+  return Math.max(min, Math.min(max, value));
+};
+
+const normalizeGameSettings = (settings: unknown): GameSettings => {
+  if (!settings || typeof settings !== 'object') return DEFAULT_SETTINGS;
+
+  const parsed = settings as Partial<GameSettings>;
+  return {
+    maxRounds: clampSettingValue(parsed.maxRounds, MIN_ROUNDS, MAX_ROUNDS, DEFAULT_SETTINGS.maxRounds),
+    optionCount: clampSettingValue(
+      parsed.optionCount,
+      MIN_OPTION_COUNT,
+      MAX_OPTION_COUNT,
+      DEFAULT_SETTINGS.optionCount
+    ),
+    highDifficulty: typeof parsed.highDifficulty === 'boolean'
+      ? parsed.highDifficulty
+      : DEFAULT_SETTINGS.highDifficulty
+  };
+};
+
+const loadSavedGameSettings = (): GameSettings => {
+  if (typeof window === 'undefined') return DEFAULT_SETTINGS;
+
+  try {
+    const raw = window.localStorage.getItem(SETTINGS_STORAGE_KEY);
+    if (!raw) return DEFAULT_SETTINGS;
+    return normalizeGameSettings(JSON.parse(raw));
+  } catch (error) {
+    console.error('Failed to load saved game settings', error);
+    return DEFAULT_SETTINGS;
+  }
+};
 
 const shuffleCountries = (source: Country[]): Country[] => {
   const shuffled = [...source];
@@ -48,10 +87,14 @@ const shuffleCountries = (source: Country[]): Country[] => {
 
 const modeUsesOptions = (mode: GameMode): boolean => mode !== 'flag-to-map';
 
+const pickRandomCountries = (source: Country[], count: number): Country[] =>
+  shuffleCountries(source).slice(0, count);
+
 const buildRoundPlan = (
   mode: GameMode,
   validCountries: Country[],
-  settings: GameSettings
+  settings: GameSettings,
+  attributesByCca3: Record<string, FlagAttributes>
 ): RoundPlanItem[] | null => {
   const maxRounds = Math.max(MIN_ROUNDS, Math.min(MAX_ROUNDS, settings.maxRounds));
   const optionCount = Math.max(MIN_OPTION_COUNT, Math.min(MAX_OPTION_COUNT, settings.optionCount));
@@ -60,17 +103,39 @@ const buildRoundPlan = (
     const requiredCountries = maxRounds * optionCount;
     if (validCountries.length < requiredCountries) return null;
 
-    const pickedCountries = shuffleCountries(validCountries).slice(0, requiredCountries);
-    return Array.from({ length: maxRounds }, (_, roundIdx) => {
-      const roundCountries = shuffleCountries(
-        pickedCountries.slice(roundIdx * optionCount, (roundIdx + 1) * optionCount)
-      );
-      const questionCountry = roundCountries[Math.floor(Math.random() * roundCountries.length)];
-      return {
+    const remainingCountries = shuffleCountries(validCountries);
+    const roundPlan: RoundPlanItem[] = [];
+
+    for (let roundIdx = 0; roundIdx < maxRounds; roundIdx += 1) {
+      const questionCountry = remainingCountries.shift();
+      if (!questionCountry) return null;
+
+      const distractorCount = optionCount - 1;
+      const distractors = settings.highDifficulty
+        ? pickHardModeDistractors(
+          questionCountry,
+          remainingCountries,
+          distractorCount,
+          attributesByCca3
+        )
+        : pickRandomCountries(remainingCountries, distractorCount);
+
+      if (distractors.length < distractorCount) return null;
+
+      const distractorCca3Set = new Set(distractors.map((country) => country.cca3));
+      for (let i = remainingCountries.length - 1; i >= 0; i -= 1) {
+        if (distractorCca3Set.has(remainingCountries[i].cca3)) {
+          remainingCountries.splice(i, 1);
+        }
+      }
+
+      roundPlan.push({
         questionCountry,
-        options: roundCountries
-      };
-    });
+        options: shuffleCountries([questionCountry, ...distractors])
+      });
+    }
+
+    return roundPlan;
   }
 
   if (validCountries.length < maxRounds) return null;
@@ -95,9 +160,10 @@ function App() {
   const [geoData, setGeoData] = useState<FeatureCollection<Geometry, GeoJsonProperties> | null>(null);
   const [choiceReview, setChoiceReview] = useState<ChoiceReviewItem[]>([]);
   const [choiceSummary, setChoiceSummary] = useState<{ mode: ChoiceMode; score: number; maxRounds: number } | null>(null);
-  const [gameSettings, setGameSettings] = useState<GameSettings>(DEFAULT_SETTINGS);
+  const [gameSettings, setGameSettings] = useState<GameSettings>(() => loadSavedGameSettings());
   const [showSettings, setShowSettings] = useState(false);
   const [roundPlan, setRoundPlan] = useState<RoundPlanItem[]>([]);
+  const [attributesByCca3, setAttributesByCca3] = useState<Record<string, FlagAttributes>>({});
 
   const [gameState, setGameState] = useState<GameState>({
     score: 0,
@@ -119,6 +185,18 @@ function App() {
       setCountries(data);
 
       try {
+        const attributeResponse = await fetch('/attributes.json');
+        if (attributeResponse.ok) {
+          const rawAttributes = (await attributeResponse.json()) as Record<string, FlagAttributes>;
+          setAttributesByCca3(buildFlagAttributesByCca3(data, rawAttributes));
+        } else {
+          console.error('Failed to load attributes.json');
+        }
+      } catch (e) {
+        console.error('Failed to load flag attributes', e);
+      }
+
+      try {
         // Fetch low-res GeoJSON for world
         const geoRes = await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json');
         setGeoData(geoRes.data);
@@ -130,6 +208,14 @@ function App() {
     };
     loadData();
   }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(gameSettings));
+    } catch (error) {
+      console.error('Failed to save game settings', error);
+    }
+  }, [gameSettings]);
 
   const startRound = (
     round: number,
@@ -169,7 +255,7 @@ function App() {
     }
 
     const validCountries = countries.filter((country) => country.flags && country.flags.svg);
-    const newRoundPlan = buildRoundPlan(mode, validCountries, gameSettings);
+    const newRoundPlan = buildRoundPlan(mode, validCountries, gameSettings, attributesByCca3);
 
     if (!newRoundPlan || newRoundPlan.length === 0) {
       window.alert('ゲームデータが不足しているため、この設定では開始できません。');
@@ -514,23 +600,21 @@ function App() {
 
           {/* Mode 4: Map -> Flag */}
           {gameState.mode === 'map-to-flag' && (
-            <div className="w-full h-full relative flex flex-col">
-              {/* Map covers top half, options bottom half? Or full map with overlay? */}
-              {/* Let's do Full Map, Options Overlay at bottom */}
-              <div className="absolute inset-0 z-0">
+            <div className="map-to-flag-mode-shell">
+              <div className="map-to-flag-map-layer">
                 <MapBoard
                   highlightCountry={currentGeoFeature}
                   center={gameState.currentCountry.latlng}
                   zoom={3}
-                  height="100vh"
+                  height="100%"
                   markers={
                     [{ lat: gameState.currentCountry.latlng[0], lng: gameState.currentCountry.latlng[1], message: "Target" }]
                   }
                 />
               </div>
 
-              <div className="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black via-black/80 to-transparent z-[1000] flex flex-col items-center">
-                <h3 className="text-2xl font-bold mb-4 drop-shadow-md">Which flag belongs to the highlighted country?</h3>
+              <div className="map-to-flag-overlay">
+                <h3 className="map-to-flag-overlay-title">Which flag belongs to the highlighted country?</h3>
                 <div className="map-to-flag-options-grid" style={optionGridStyle}>
                   {gameState.options.map((country) => (
                     <FlagCard
@@ -539,15 +623,15 @@ function App() {
                       size="md"
                       onClick={() => handleOptionSelect(country)}
                       className={`
-                                      map-to-flag-option-card
-                                      ${gameState.showResult && country.cca3 === gameState.currentCountry?.cca3 ? 'border-4 border-green-500 scale-110 z-10' : ''}
-                                      ${gameState.showResult && country.cca3 !== gameState.currentCountry?.cca3 ? 'opacity-40 grayscale' : ''}
-                                  `}
+                        map-to-flag-option-card
+                        ${gameState.showResult && country.cca3 === gameState.currentCountry?.cca3 ? 'map-to-flag-option-card-correct' : ''}
+                        ${gameState.showResult && country.cca3 !== gameState.currentCountry?.cca3 ? 'map-to-flag-option-card-wrong' : ''}
+                      `}
                     />
                   ))}
                 </div>
                 {gameState.showResult && (
-                  <button onClick={nextRound} className="mt-2 btn-glass bg-green-600/50">Next Round ➡</button>
+                  <button onClick={nextRound} className="btn-glass map-to-flag-next-button">Next Round ➡</button>
                 )}
               </div>
             </div>

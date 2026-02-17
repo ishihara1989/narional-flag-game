@@ -51,7 +51,7 @@ const MainMenu: FC<MainMenuProps> = ({ onSelectMode, settings, onOpenSettings })
                     onClick={onOpenSettings}
                     className="btn-glass main-menu-settings-button"
                 >
-                    設定を変更 ({settings.maxRounds} ラウンド / 選択肢 {settings.optionCount})
+                    設定を変更 ({settings.maxRounds} ラウンド / 選択肢 {settings.optionCount} / 高難易度 {settings.highDifficulty ? 'ON' : 'OFF'})
                 </button>
             </header>
 
