@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import type {
   Country,
   FlagAttributes,
@@ -9,7 +9,7 @@ import type {
 } from './types';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { CountryService } from './services/countryService';
-import { buildFlagAttributesByCca3, pickHardModeDistractors } from './services/flagDifficultyService';
+import { buildFlagAttributesByCca3, getTopSimilarCountries, pickHardModeDistractors } from './services/flagDifficultyService';
 import MainMenu from './components/MainMenu';
 import SettingsMenu from './components/SettingsMenu';
 import MapBoard from './components/MapBoard';
@@ -457,6 +457,20 @@ function App() {
   const isCurrentMemoryMode = Boolean(gameState.mode && isMemoryMode(gameState.mode));
   const isCurrentNameToFlagMode = Boolean(gameState.mode && isNameToFlagMode(gameState.mode));
   const isCurrentFlagToNameMode = Boolean(gameState.mode && isFlagToNameMode(gameState.mode));
+  const similarFlagTop3 = useMemo(() => {
+    if (!gameState.showResult || !gameState.currentCountry || !gameState.mode) return [];
+    if (!isNameToFlagMode(gameState.mode) && !isFlagToNameMode(gameState.mode)) return [];
+
+    const candidateCountries = countries.filter(
+      (country) => country.cca3 !== gameState.currentCountry?.cca3 && country.flags?.svg
+    );
+    return getTopSimilarCountries(
+      gameState.currentCountry,
+      candidateCountries,
+      3,
+      attributesByCca3
+    );
+  }, [gameState.showResult, gameState.currentCountry, gameState.mode, countries, attributesByCca3]);
   const getChoiceOptionHighlightClass = (country: Country): string => {
     const isSelected = gameState.selectedOptionCca3 === country.cca3;
     const isCorrectOption = country.cca3 === gameState.currentCountry?.cca3;
@@ -465,6 +479,26 @@ function App() {
     if (!gameState.lastGuessCorrect && isSelected) return 'choice-option-wrong';
     return 'choice-option-neutral';
   };
+  const similarFlagsSection = gameState.showResult && similarFlagTop3.length > 0 && (
+    <div className="similar-flags-shell">
+      <p className="similar-flags-title">正解に似ている国旗 Top 3</p>
+      <div className="similar-flags-grid">
+        {similarFlagTop3.map((country) => (
+          <div key={`similar-${gameState.currentCountry?.cca3}-${country.cca3}`} className="similar-flag-item">
+            <FlagCard
+              flagUrl={country.flags.svg}
+              altText={CountryService.getJapaneseName(country)}
+              size="sm"
+              imageFit="fill"
+              fitToContainer
+              className="similar-flag-card"
+            />
+            <p className="similar-flag-name">{CountryService.getJapaneseName(country)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   if (loading) return <div className="text-white flex justify-center items-center h-screen">Loading Globe Data...</div>;
 
@@ -719,6 +753,7 @@ function App() {
                   />
                 </div>
               )}
+              {similarFlagsSection}
               {gameState.showResult && (
                 <div className="name-to-flag-next">
                   <button onClick={nextRound} className="btn-glass">Next Round ➡</button>
@@ -782,6 +817,7 @@ function App() {
                   />
                 </div>
               )}
+              {similarFlagsSection}
               {gameState.showResult && (
                 <div className="name-to-flag-next">
                   <button onClick={nextRound} className="btn-glass">Next Round ➡</button>

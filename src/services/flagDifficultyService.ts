@@ -68,6 +68,36 @@ const getSimilarityScore = (
   return score;
 };
 
+type RankedCountryCandidate = {
+  country: Country;
+  score: number;
+};
+
+const getRankedSimilarityCandidates = (
+  questionCountry: Country,
+  candidateCountries: Country[],
+  attributesByCca3: Record<string, FlagAttributes>
+): RankedCountryCandidate[] => {
+  const sourceAttributes = attributesByCca3[questionCountry.cca3];
+  if (!sourceAttributes) return [];
+
+  return candidateCountries
+    .map((country) => {
+      const candidateAttributes = attributesByCca3[country.cca3];
+      if (!candidateAttributes) return null;
+
+      return {
+        country,
+        score: getSimilarityScore(sourceAttributes, candidateAttributes)
+      };
+    })
+    .filter((item): item is RankedCountryCandidate => Boolean(item))
+    .sort((left, right) => {
+      if (right.score !== left.score) return right.score - left.score;
+      return left.country.name.common.localeCompare(right.country.name.common);
+    });
+};
+
 const pickWeightedIndex = (weights: number[]): number => {
   const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
   if (totalWeight <= 0) return 0;
@@ -131,28 +161,17 @@ export const pickHardModeDistractors = (
 ): Country[] => {
   if (distractorCount <= 0 || candidateCountries.length === 0) return [];
 
-  const sourceAttributes = attributesByCca3[questionCountry.cca3];
-  if (!sourceAttributes) {
-    return shuffleCountries(candidateCountries).slice(0, distractorCount);
-  }
-
-  const rankedCandidates = candidateCountries
-    .map((country) => {
-      const candidateAttributes = attributesByCca3[country.cca3];
-      if (!candidateAttributes) return null;
-
-      return {
-        country,
-        score: getSimilarityScore(sourceAttributes, candidateAttributes)
-      };
-    })
-    .filter((item): item is { country: Country; score: number } => Boolean(item))
+  const rankedCandidates = getRankedSimilarityCandidates(questionCountry, candidateCountries, attributesByCca3)
     .sort((left, right) => right.score - left.score)
     .slice(0, HARD_MODE_CANDIDATE_LIMIT)
     .map((item, index) => ({
       ...item,
       weight: HARD_MODE_CANDIDATE_LIMIT - index
     }));
+
+  if (rankedCandidates.length === 0) {
+    return shuffleCountries(candidateCountries).slice(0, distractorCount);
+  }
 
   const weightedPool = [...rankedCandidates];
   const selected: Country[] = [];
@@ -174,4 +193,30 @@ export const pickHardModeDistractors = (
   ).slice(0, distractorCount - selected.length);
 
   return [...selected, ...fallbackCountries];
+};
+
+export const getTopSimilarCountries = (
+  questionCountry: Country,
+  candidateCountries: Country[],
+  count: number,
+  attributesByCca3: Record<string, FlagAttributes>
+): Country[] => {
+  if (count <= 0 || candidateCountries.length === 0) return [];
+
+  const rankedCandidates = getRankedSimilarityCandidates(questionCountry, candidateCountries, attributesByCca3);
+  if (rankedCandidates.length === 0) {
+    return shuffleCountries(candidateCountries).slice(0, count);
+  }
+
+  const topScoredCountries = rankedCandidates.slice(0, count).map((item) => item.country);
+  if (topScoredCountries.length >= count) {
+    return topScoredCountries;
+  }
+
+  const selectedSet = new Set(topScoredCountries.map((country) => country.cca3));
+  const fallbackCountries = shuffleCountries(
+    candidateCountries.filter((country) => !selectedSet.has(country.cca3))
+  ).slice(0, count - topScoredCountries.length);
+
+  return [...topScoredCountries, ...fallbackCountries];
 };
