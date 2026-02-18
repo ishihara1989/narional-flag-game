@@ -199,9 +199,43 @@ body {
   gap: 12px;
 }
 
+.memory-category-sections {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: min(56vh, 540px);
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.memory-category-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.memory-category-section-title {
+  margin: 0;
+  font-size: 0.95rem;
+  text-align: left;
+  opacity: 0.9;
+}
+
 .memory-region-button {
   min-height: 54px;
   font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.memory-category-count {
+  font-size: 0.82rem;
+  opacity: 0.84;
+  font-weight: 600;
 }
 
 .memory-region-back {

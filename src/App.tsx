@@ -20,6 +20,31 @@ import axios from 'axios';
 type StandardChoiceMode = 'name-to-flag' | 'flag-to-name';
 type MemoryChoiceMode = 'memory-name-to-flag' | 'memory-flag-to-name';
 type ChoiceMode = StandardChoiceMode;
+type MemoryCategoryType = 'region' | 'motif' | 'layout';
+type MemoryCategoryId =
+  | MemoryRegion
+  | 'motif-simple'
+  | 'motif-emblem'
+  | 'motif-sun'
+  | 'motif-star-moon'
+  | 'layout-horizontal'
+  | 'layout-vertical'
+  | 'layout-triangle-diagonal'
+  | 'layout-canton'
+  | 'layout-cross';
+
+type MemoryCategory = {
+  id: MemoryCategoryId;
+  type: MemoryCategoryType;
+  label: string;
+  tags?: string[];
+};
+
+type MemoryCategorySection = {
+  id: string;
+  title: string;
+  categories: MemoryCategory[];
+};
 
 type ChoiceReviewItem = {
   id: string;
@@ -52,6 +77,97 @@ const COUNTRY_REGION_TO_MEMORY_REGION: Record<string, MemoryRegion> = {
   Asia: 'asia',
   Oceania: 'oceania'
 };
+const MIN_MEMORY_CATEGORY_COUNTRY_COUNT = 10;
+
+const MEMORY_REGION_CATEGORIES: MemoryCategory[] = MEMORY_REGIONS.map((region) => ({
+  id: region,
+  type: 'region',
+  label: MEMORY_REGION_LABELS[region]
+}));
+
+const MEMORY_MOTIF_CATEGORIES: MemoryCategory[] = [
+  {
+    id: 'motif-simple',
+    type: 'motif',
+    label: 'シンプルデザイン（モチーフなし）'
+  },
+  {
+    id: 'motif-emblem',
+    type: 'motif',
+    label: 'エンブレム付き',
+    tags: ['emblem']
+  },
+  {
+    id: 'motif-sun',
+    type: 'motif',
+    label: '太陽モチーフ',
+    tags: ['sun']
+  },
+  {
+    id: 'motif-star-moon',
+    type: 'motif',
+    label: '星・月モチーフ',
+    tags: ['star', 'crescent_star', 'moon']
+  }
+];
+
+const MEMORY_LAYOUT_CATEGORIES: MemoryCategory[] = [
+  {
+    id: 'layout-horizontal',
+    type: 'layout',
+    label: '横帯レイアウト',
+    tags: ['tri_h', 'stripes', 'bicolor_h']
+  },
+  {
+    id: 'layout-vertical',
+    type: 'layout',
+    label: '縦帯レイアウト',
+    tags: ['tri_v', 'bicolor_v']
+  },
+  {
+    id: 'layout-triangle-diagonal',
+    type: 'layout',
+    label: '三角・斜線レイアウト',
+    tags: ['triangle', 'diagonal']
+  },
+  {
+    id: 'layout-canton',
+    type: 'layout',
+    label: 'カントンあり',
+    tags: ['canton']
+  },
+  {
+    id: 'layout-cross',
+    type: 'layout',
+    label: '十字・斜め十字',
+    tags: ['nordic', 'cross', 'saltire']
+  }
+];
+
+const MEMORY_CATEGORY_SECTIONS: MemoryCategorySection[] = [
+  {
+    id: 'region',
+    title: '地域別',
+    categories: MEMORY_REGION_CATEGORIES
+  },
+  {
+    id: 'motif',
+    title: 'モチーフ別',
+    categories: MEMORY_MOTIF_CATEGORIES
+  },
+  {
+    id: 'layout',
+    title: 'レイアウト別',
+    categories: MEMORY_LAYOUT_CATEGORIES
+  }
+];
+
+const MEMORY_CATEGORY_BY_ID = new Map<MemoryCategoryId, MemoryCategory>(
+  [...MEMORY_REGION_CATEGORIES, ...MEMORY_MOTIF_CATEGORIES, ...MEMORY_LAYOUT_CATEGORIES].map((category) => [
+    category.id,
+    category
+  ])
+);
 
 const DEFAULT_SETTINGS: GameSettings = {
   maxRounds: 5,
@@ -127,6 +243,36 @@ const modeUsesOptions = (mode: GameMode): boolean => mode !== 'flag-to-map';
 const getMemoryRegionForCountry = (country: Country): MemoryRegion | null =>
   COUNTRY_REGION_TO_MEMORY_REGION[country.region] ?? null;
 
+const hasAnyTag = (sourceTags: string[] | undefined, targetTags: string[] | undefined): boolean => {
+  if (!sourceTags || sourceTags.length === 0 || !targetTags || targetTags.length === 0) return false;
+  return sourceTags.some((tag) => targetTags.includes(tag));
+};
+
+const getMemoryCategoryCountries = (
+  validCountries: Country[],
+  attributesByCca3: Record<string, FlagAttributes>,
+  category: MemoryCategory
+): Country[] => {
+  if (category.type === 'region') {
+    return validCountries.filter((country) => getMemoryRegionForCountry(country) === category.id);
+  }
+
+  return validCountries.filter((country) => {
+    const attributes = attributesByCca3[country.cca3];
+    if (!attributes) return false;
+
+    if (category.id === 'motif-simple') {
+      return (attributes.motif?.length ?? 0) === 0;
+    }
+
+    if (category.type === 'motif') {
+      return hasAnyTag(attributes.motif, category.tags);
+    }
+
+    return hasAnyTag(attributes.layout, category.tags);
+  });
+};
+
 const pickRandomCountries = (source: Country[], count: number): Country[] =>
   shuffleCountries(source).slice(0, count);
 
@@ -135,24 +281,24 @@ const buildRoundPlan = (
   validCountries: Country[],
   settings: GameSettings,
   attributesByCca3: Record<string, FlagAttributes>,
-  memoryRegion: MemoryRegion | null
+  memoryCategory: MemoryCategory | null
 ): RoundPlanItem[] | null => {
   const maxRounds = Math.max(MIN_ROUNDS, Math.min(MAX_ROUNDS, settings.maxRounds));
   const optionCount = Math.max(MIN_OPTION_COUNT, Math.min(MAX_OPTION_COUNT, settings.optionCount));
 
   if (isMemoryMode(mode)) {
-    if (!memoryRegion) return null;
+    if (!memoryCategory) return null;
 
-    const regionCountries = shuffleCountries(
-      validCountries.filter((country) => getMemoryRegionForCountry(country) === memoryRegion)
+    const memoryCountries = shuffleCountries(
+      getMemoryCategoryCountries(validCountries, attributesByCca3, memoryCategory)
     );
-    if (regionCountries.length < MIN_OPTION_COUNT) return null;
+    if (memoryCountries.length < MIN_OPTION_COUNT) return null;
 
-    const effectiveOptionCount = Math.min(optionCount, regionCountries.length);
+    const effectiveOptionCount = Math.min(optionCount, memoryCountries.length);
     const roundPlan: RoundPlanItem[] = [];
 
-    for (const questionCountry of regionCountries) {
-      const candidates = regionCountries.filter((country) => country.cca3 !== questionCountry.cca3);
+    for (const questionCountry of memoryCountries) {
+      const candidates = memoryCountries.filter((country) => country.cca3 !== questionCountry.cca3);
       const distractorCount = effectiveOptionCount - 1;
       const distractors = settings.highDifficulty
         ? pickHardModeDistractors(
@@ -240,7 +386,7 @@ function App() {
   const [roundPlan, setRoundPlan] = useState<RoundPlanItem[]>([]);
   const [attributesByCca3, setAttributesByCca3] = useState<Record<string, FlagAttributes>>({});
   const [pendingMemoryMode, setPendingMemoryMode] = useState<MemoryChoiceMode | null>(null);
-  const [activeMemoryRegion, setActiveMemoryRegion] = useState<MemoryRegion | null>(null);
+  const [activeMemoryCategory, setActiveMemoryCategory] = useState<MemoryCategory | null>(null);
 
   const [gameState, setGameState] = useState<GameState>({
     score: 0,
@@ -255,6 +401,24 @@ function App() {
   });
 
   const [clickedLocation, setClickedLocation] = useState<L.LatLng | null>(null);
+  const validCountries = useMemo(
+    () => countries.filter((country) => country.flags && country.flags.svg),
+    [countries]
+  );
+  const memoryCategorySections = useMemo(
+    () => MEMORY_CATEGORY_SECTIONS
+      .map((section) => ({
+        ...section,
+        categories: section.categories
+          .map((category) => ({
+            ...category,
+            countryCount: getMemoryCategoryCountries(validCountries, attributesByCca3, category).length
+          }))
+          .filter((category) => category.countryCount >= MIN_MEMORY_CATEGORY_COUNTRY_COUNT)
+      }))
+      .filter((section) => section.categories.length > 0),
+    [validCountries, attributesByCca3]
+  );
 
   useEffect(() => {
     const loadData = async () => {
@@ -322,17 +486,16 @@ function App() {
     setRoundPlan([]);
     setClickedLocation(null);
     setPendingMemoryMode(null);
-    setActiveMemoryRegion(null);
+    setActiveMemoryCategory(null);
   };
 
-  const launchGame = (mode: GameMode, memoryRegion: MemoryRegion | null = null) => {
+  const launchGame = (mode: GameMode, memoryCategory: MemoryCategory | null = null) => {
     if (isStandardChoiceMode(mode)) {
       setChoiceReview([]);
       setChoiceSummary(null);
     }
 
-    const validCountries = countries.filter((country) => country.flags && country.flags.svg);
-    const newRoundPlan = buildRoundPlan(mode, validCountries, gameSettings, attributesByCca3, memoryRegion);
+    const newRoundPlan = buildRoundPlan(mode, validCountries, gameSettings, attributesByCca3, memoryCategory);
 
     if (!newRoundPlan || newRoundPlan.length === 0) {
       window.alert('ゲームデータが不足しているため、この設定では開始できません。');
@@ -342,7 +505,7 @@ function App() {
     setRoundPlan(newRoundPlan);
     setShowSettings(false);
     setPendingMemoryMode(null);
-    setActiveMemoryRegion(isMemoryMode(mode) ? memoryRegion : null);
+    setActiveMemoryCategory(isMemoryMode(mode) ? memoryCategory : null);
     startRound(1, 0, mode, newRoundPlan);
   };
 
@@ -358,9 +521,11 @@ function App() {
     launchGame(mode, null);
   };
 
-  const startMemoryGame = (region: MemoryRegion) => {
+  const startMemoryGame = (categoryId: MemoryCategoryId) => {
     if (!pendingMemoryMode) return;
-    launchGame(pendingMemoryMode, region);
+    const category = MEMORY_CATEGORY_BY_ID.get(categoryId);
+    if (!category) return;
+    launchGame(pendingMemoryMode, category);
   };
 
   const handleMapClick = (latlng: L.LatLng) => {
@@ -520,23 +685,35 @@ function App() {
       )}
       {!gameState.mode && !choiceSummary && !showSettings && pendingMemoryMode && (
         <div className="memory-region-menu glass-panel">
-          <h2 className="memory-region-title">暗記モード: 地域を選択</h2>
+          <h2 className="memory-region-title">暗記モード: 出題カテゴリを選択</h2>
           <p className="memory-region-subtitle">
             {pendingMemoryMode === 'memory-name-to-flag'
               ? '国名 → 国旗で出題します'
               : '国旗 → 国名で出題します'}
           </p>
-          <div className="memory-region-grid">
-            {MEMORY_REGIONS.map((region) => (
-              <button
-                key={region}
-                onClick={() => startMemoryGame(region)}
-                className="btn-glass memory-region-button"
-              >
-                {MEMORY_REGION_LABELS[region]}
-              </button>
+          <p className="memory-region-subtitle">10問以上あるカテゴリのみ表示しています。</p>
+          <div className="memory-category-sections">
+            {memoryCategorySections.map((section) => (
+              <section key={section.id} className="memory-category-section">
+                <h3 className="memory-category-section-title">{section.title}</h3>
+                <div className="memory-region-grid">
+                  {section.categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => startMemoryGame(category.id)}
+                      className="btn-glass memory-region-button"
+                    >
+                      <span>{category.label}</span>
+                      <span className="memory-category-count">{category.countryCount}問</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
+          {memoryCategorySections.length === 0 && (
+            <p className="memory-region-subtitle">利用可能なカテゴリがありません。</p>
+          )}
           <button
             onClick={() => setPendingMemoryMode(null)}
             className="btn-glass memory-region-back"
@@ -660,8 +837,8 @@ function App() {
           <div className="absolute top-0 w-full z-[1001] bg-gradient-to-b from-black/80 to-transparent p-4 flex justify-between items-center px-8 pointer-events-none">
             <div className="text-xl font-bold drop-shadow-md">
               <div>Round {gameState.round} / {gameState.maxRounds}</div>
-              {isCurrentMemoryMode && activeMemoryRegion && (
-                <div className="memory-active-region-label">{MEMORY_REGION_LABELS[activeMemoryRegion]}</div>
+              {isCurrentMemoryMode && activeMemoryCategory && (
+                <div className="memory-active-region-label">{activeMemoryCategory.label}</div>
               )}
             </div>
             <div className="text-2xl font-bold text-yellow-400 drop-shadow-md">Score: {gameState.score}</div>
@@ -707,8 +884,8 @@ function App() {
           {/* Mode 2 & Memory: Name -> Flag */}
           {isCurrentNameToFlagMode && (
             <div className="name-to-flag-mode">
-              {isCurrentMemoryMode && activeMemoryRegion && (
-                <p className="memory-mode-caption">暗記モード: {MEMORY_REGION_LABELS[activeMemoryRegion]}</p>
+              {isCurrentMemoryMode && activeMemoryCategory && (
+                <p className="memory-mode-caption">暗記モード: {activeMemoryCategory.label}</p>
               )}
               <h2 className="name-to-flag-title">
                 {CountryService.getJapaneseName(gameState.currentCountry)}
@@ -765,8 +942,8 @@ function App() {
           {/* Mode 3 & Memory: Flag -> Name */}
           {isCurrentFlagToNameMode && (
             <div className="name-to-flag-mode">
-              {isCurrentMemoryMode && activeMemoryRegion && (
-                <p className="memory-mode-caption">暗記モード: {MEMORY_REGION_LABELS[activeMemoryRegion]}</p>
+              {isCurrentMemoryMode && activeMemoryCategory && (
+                <p className="memory-mode-caption">暗記モード: {activeMemoryCategory.label}</p>
               )}
               <h2 className="name-to-flag-title">この国旗の国名は？</h2>
               <div className="mb-5">
