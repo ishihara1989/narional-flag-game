@@ -426,7 +426,7 @@ function App() {
       setCountries(data);
 
       try {
-        const attributeResponse = await fetch('/attributes.json');
+        const attributeResponse = await fetch(`${import.meta.env.BASE_URL}attributes.json`);
         if (attributeResponse.ok) {
           const rawAttributes = (await attributeResponse.json()) as Record<string, FlagAttributes>;
           setAttributesByCca3(buildFlagAttributesByCca3(data, rawAttributes));
