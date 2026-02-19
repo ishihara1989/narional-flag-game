@@ -890,6 +890,30 @@ function App() {
               <h2 className="name-to-flag-title">
                 {CountryService.getJapaneseName(gameState.currentCountry)}
               </h2>
+              {gameState.showResult && (
+                <div className="choice-answer-map-shell">
+                  <p className="choice-answer-map-title">
+                    正解の位置: {CountryService.getJapaneseName(gameState.currentCountry)}
+                  </p>
+                  <MapBoard
+                    center={gameState.currentCountry.latlng}
+                    zoom={3}
+                    height="280px"
+                    markers={[
+                      {
+                        lat: gameState.currentCountry.latlng[0],
+                        lng: gameState.currentCountry.latlng[1],
+                        message: CountryService.getJapaneseName(gameState.currentCountry)
+                      }
+                    ]}
+                  />
+                </div>
+              )}
+              {gameState.showResult && (
+                <div className="name-to-flag-next">
+                  <button onClick={nextRound} className="btn-glass">Next Round ➡</button>
+                </div>
+              )}
               <div className="name-to-flag-options-grid" style={optionGridStyle}>
                 {gameState.options.map((country) => (
                   <button
@@ -911,6 +935,25 @@ function App() {
                   </button>
                 ))}
               </div>
+              {similarFlagsSection}
+            </div>
+          )}
+
+          {/* Mode 3 & Memory: Flag -> Name */}
+          {isCurrentFlagToNameMode && (
+            <div className="name-to-flag-mode">
+              {isCurrentMemoryMode && activeMemoryCategory && (
+                <p className="memory-mode-caption">暗記モード: {activeMemoryCategory.label}</p>
+              )}
+              <h2 className="name-to-flag-title">この国旗の国名は？</h2>
+              <div className="mb-5">
+                <FlagCard
+                  flagUrl={gameState.currentCountry.flags.svg}
+                  altText={CountryService.getJapaneseName(gameState.currentCountry)}
+                  size="lg"
+                  imageFit="fill"
+                />
+              </div>
               {gameState.showResult && (
                 <div className="choice-answer-map-shell">
                   <p className="choice-answer-map-title">
@@ -930,30 +973,11 @@ function App() {
                   />
                 </div>
               )}
-              {similarFlagsSection}
               {gameState.showResult && (
                 <div className="name-to-flag-next">
                   <button onClick={nextRound} className="btn-glass">Next Round ➡</button>
                 </div>
               )}
-            </div>
-          )}
-
-          {/* Mode 3 & Memory: Flag -> Name */}
-          {isCurrentFlagToNameMode && (
-            <div className="name-to-flag-mode">
-              {isCurrentMemoryMode && activeMemoryCategory && (
-                <p className="memory-mode-caption">暗記モード: {activeMemoryCategory.label}</p>
-              )}
-              <h2 className="name-to-flag-title">この国旗の国名は？</h2>
-              <div className="mb-5">
-                <FlagCard
-                  flagUrl={gameState.currentCountry.flags.svg}
-                  altText={CountryService.getJapaneseName(gameState.currentCountry)}
-                  size="lg"
-                  imageFit="fill"
-                />
-              </div>
               <div className="flag-to-name-options-grid" style={optionGridStyle}>
                 {gameState.options.map((country) => (
                   <button
@@ -975,31 +999,7 @@ function App() {
                   </button>
                 ))}
               </div>
-              {gameState.showResult && (
-                <div className="choice-answer-map-shell">
-                  <p className="choice-answer-map-title">
-                    正解の位置: {CountryService.getJapaneseName(gameState.currentCountry)}
-                  </p>
-                  <MapBoard
-                    center={gameState.currentCountry.latlng}
-                    zoom={3}
-                    height="280px"
-                    markers={[
-                      {
-                        lat: gameState.currentCountry.latlng[0],
-                        lng: gameState.currentCountry.latlng[1],
-                        message: CountryService.getJapaneseName(gameState.currentCountry)
-                      }
-                    ]}
-                  />
-                </div>
-              )}
               {similarFlagsSection}
-              {gameState.showResult && (
-                <div className="name-to-flag-next">
-                  <button onClick={nextRound} className="btn-glass">Next Round ➡</button>
-                </div>
-              )}
             </div>
           )}
 
